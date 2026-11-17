@@ -5,55 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🌹 Ruženka – Živnostenský Pomocník</title>
 <style>
-:root {
-  --bg:#fff1f3;--surface:#fff;--surface2:#ffe4e8;--border:#fecdd5;
-  --primary:#e11d48;--primary-h:#be123c;--primary-l:#fda4b1;
-  --text:#1a0a0f;--text2:#6b3344;--muted:#9f6070;
-  --user-bg:#e11d48;--user-fg:#fff;--bot-bg:#fff;--bot-fg:#1a0a0f;
-  --shadow:0 4px 24px rgba(225,29,72,.12);--shadow-s:0 2px 8px rgba(225,29,72,.08);
-  --r:16px;--rs:8px;
-}
-[data-theme="dark"]{
-  --bg:#110409;--surface:#1e0b13;--surface2:#2d1221;--border:#5c1d30;
-  --primary:#f43f5e;--primary-h:#fb7089;--primary-l:#9f1239;
-  --text:#fdf2f5;--text2:#f9a8ba;--muted:#c8849a;
-  --user-bg:#be123c;--user-fg:#fff;--bot-bg:#2d1221;--bot-fg:#fdf2f5;
-  --shadow:0 4px 24px rgba(244,63,94,.22);--shadow-s:0 2px 8px rgba(244,63,94,.15);
-}
+:root{--bg:#fff1f3;--surface:#fff;--surface2:#ffe4e8;--border:#fecdd5;--primary:#e11d48;--primary-h:#be123c;--primary-l:#fda4b1;--text:#1a0a0f;--text2:#6b3344;--muted:#9f6070;--user-bg:#e11d48;--user-fg:#fff;--bot-bg:#fff;--bot-fg:#1a0a0f;--shadow:0 4px 24px rgba(225,29,72,.12);--shadow-s:0 2px 8px rgba(225,29,72,.08);--r:16px;--rs:8px}
+[data-theme="dark"]{--bg:#110409;--surface:#1e0b13;--surface2:#2d1221;--border:#5c1d30;--primary:#f43f5e;--primary-h:#fb7089;--primary-l:#9f1239;--text:#fdf2f5;--text2:#f9a8ba;--muted:#c8849a;--user-bg:#be123c;--user-fg:#fff;--bot-bg:#2d1221;--bot-fg:#fdf2f5;--shadow:0 4px 24px rgba(244,63,94,.22);--shadow-s:0 2px 8px rgba(244,63,94,.15)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);
-  min-height:100dvh;display:flex;flex-direction:column;align-items:center;overflow-x:hidden;line-height:1.55}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100dvh;display:flex;flex-direction:column;align-items:center;overflow-x:hidden;line-height:1.55}
 .petals{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
 .petal{position:absolute;bottom:-80px;font-size:3rem;opacity:.05;animation:rise linear infinite;user-select:none}
 @keyframes rise{from{transform:translateY(0) rotate(0deg);opacity:0}8%{opacity:.05}92%{opacity:.05}to{transform:translateY(-110vh) rotate(360deg);opacity:0}}
-.theme-btn{position:fixed;top:1rem;right:1rem;z-index:200;background:var(--surface);border:1.5px solid var(--border);
-  border-radius:50%;width:44px;height:44px;cursor:pointer;font-size:1.25rem;display:flex;align-items:center;
-  justify-content:center;box-shadow:var(--shadow-s);transition:transform .2s}
+.theme-btn{position:fixed;top:1rem;right:1rem;z-index:200;background:var(--surface);border:1.5px solid var(--border);border-radius:50%;width:44px;height:44px;cursor:pointer;font-size:1.25rem;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-s);transition:transform .2s}
 .theme-btn:hover{transform:scale(1.1)}
 .theme-btn:focus-visible{outline:2px solid var(--primary);outline-offset:3px}
 .hdr{width:100%;max-width:860px;padding:1.75rem 1.5rem .75rem;text-align:center;position:relative;z-index:1}
 .hdr-rose{font-size:3rem;display:block;margin-bottom:.4rem;filter:drop-shadow(0 2px 10px rgba(225,29,72,.35))}
-.hdr h1{font-size:1.7rem;font-weight:800;letter-spacing:-.025em;
-  background:linear-gradient(135deg,var(--primary),var(--primary-h));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hdr h1{font-size:1.7rem;font-weight:800;letter-spacing:-.025em;background:linear-gradient(135deg,var(--primary),var(--primary-h));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hdr p{color:var(--muted);font-size:.875rem;margin-top:.25rem}
 .chat{width:100%;max-width:860px;flex:1;display:flex;flex-direction:column;padding:0 1rem 1rem;position:relative;z-index:1;gap:.7rem}
 .chips{display:flex;flex-wrap:wrap;gap:.45rem}
-.chip{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:.32rem .85rem;
-  font-size:.78rem;color:var(--text2);cursor:pointer;font-family:inherit;transition:all .18s;white-space:nowrap}
+.chip{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:.32rem .85rem;font-size:.78rem;color:var(--text2);cursor:pointer;font-family:inherit;transition:all .18s;white-space:nowrap}
 .chip:hover{background:var(--primary);color:#fff;border-color:var(--primary);transform:translateY(-1px);box-shadow:var(--shadow-s)}
 .chip:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
-.msgs{flex:1;overflow-y:auto;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);
-  padding:1.4rem;min-height:420px;max-height:58vh;display:flex;flex-direction:column;gap:1.25rem;
-  box-shadow:var(--shadow);scroll-behavior:smooth}
+.msgs{flex:1;overflow-y:auto;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:1.4rem;min-height:420px;max-height:58vh;display:flex;flex-direction:column;gap:1.25rem;box-shadow:var(--shadow);scroll-behavior:smooth}
 .msgs::-webkit-scrollbar{width:5px}
 .msgs::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 .row{display:flex;gap:.7rem;animation:fadeUp .28s ease-out}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .row.u{flex-direction:row-reverse;align-self:flex-end;max-width:80%}
 .row.b{align-self:flex-start;max-width:86%}
-.av{width:38px;height:38px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;
-  justify-content:center;font-size:1.1rem;background:var(--surface2);border:1.5px solid var(--border)}
+.av{width:38px;height:38px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.1rem;background:var(--surface2);border:1.5px solid var(--border)}
 .bub{padding:.75rem 1.05rem;border-radius:var(--r);font-size:.875rem;line-height:1.7;word-break:break-word}
 .row.u .bub{background:var(--user-bg);color:var(--user-fg);border-radius:var(--r) var(--r) 4px var(--r)}
 .row.b .bub{background:var(--bot-bg);color:var(--bot-fg);border:1.5px solid var(--border);border-radius:var(--r) var(--r) var(--r) 4px}
@@ -65,455 +43,638 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .bub li{margin-bottom:.25rem}
 .bub p{margin-bottom:.45rem}
 .bub p:last-child{margin-bottom:0}
-.bub .tag{display:inline-block;background:var(--primary);color:#fff;font-size:.7rem;padding:.1rem .45rem;border-radius:10px;font-weight:700;margin-right:.2rem}
 .typing-row{display:flex;gap:.7rem;align-self:flex-start;animation:fadeUp .28s ease-out}
-.typing-bub{background:var(--bot-bg);border:1.5px solid var(--border);border-radius:var(--r) var(--r) var(--r) 4px;
-  padding:.85rem 1.1rem;display:flex;gap:5px;align-items:center}
+.typing-bub{background:var(--bot-bg);border:1.5px solid var(--border);border-radius:var(--r) var(--r) var(--r) 4px;padding:.85rem 1.1rem;display:flex;gap:5px;align-items:center}
 .td{width:8px;height:8px;background:var(--primary-l);border-radius:50%;animation:tdB 1.4s ease-in-out infinite}
 .td:nth-child(2){animation-delay:.2s}.td:nth-child(3){animation-delay:.4s}
 @keyframes tdB{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-7px);opacity:1}}
 .inp-row{display:flex;gap:.65rem;align-items:flex-end}
 .inp-wrap{flex:1}
-.inp-wrap textarea{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--rs);
-  background:var(--surface);color:var(--text);font-size:.875rem;font-family:inherit;resize:none;
-  min-height:52px;max-height:160px;overflow-y:auto;transition:border-color .2s,box-shadow .2s;line-height:1.5}
+.inp-wrap textarea{width:100%;padding:.82rem 1rem;border:1.5px solid var(--border);border-radius:var(--rs);background:var(--surface);color:var(--text);font-size:.875rem;font-family:inherit;resize:none;min-height:52px;max-height:160px;overflow-y:auto;transition:border-color .2s,box-shadow .2s;line-height:1.5}
 .inp-wrap textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(225,29,72,.1)}
 .inp-wrap textarea::placeholder{color:var(--muted)}
-.send-btn{width:52px;height:52px;flex-shrink:0;background:var(--primary);color:#fff;border:none;
-  border-radius:var(--rs);font-size:1.35rem;cursor:pointer;display:flex;align-items:center;justify-content:center;
-  transition:background .2s,transform .1s,box-shadow .2s}
+.send-btn{width:52px;height:52px;flex-shrink:0;background:var(--primary);color:#fff;border:none;border-radius:var(--rs);font-size:1.35rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .1s,box-shadow .2s}
 .send-btn:hover:not(:disabled){background:var(--primary-h);transform:translateY(-1px);box-shadow:var(--shadow-s)}
 .send-btn:active:not(:disabled){transform:scale(.95)}
 .send-btn:disabled{opacity:.4;cursor:not-allowed}
 .send-btn:focus-visible{outline:2px solid var(--primary-h);outline-offset:3px}
 .sr{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-@media(max-width:600px){.hdr h1{font-size:1.35rem}.chips{gap:.35rem}.chip{font-size:.73rem;padding:.28rem .7rem}
-  .msgs{min-height:340px;max-height:50vh;padding:1rem}.row.u,.row.b{max-width:93%}}
+@media(max-width:600px){.hdr h1{font-size:1.35rem}.chips{gap:.35rem}.chip{font-size:.73rem;padding:.28rem .7rem}.msgs{min-height:340px;max-height:50vh;padding:1rem}.row.u,.row.b{max-width:93%}}
 </style>
 </head>
 <body>
 <div class="petals" aria-hidden="true" id="petals"></div>
 <button class="theme-btn" id="themeBtn" aria-label="Přepnout téma">🌸</button>
-
 <header class="hdr">
   <span class="hdr-rose" aria-hidden="true">🌹</span>
   <h1>Živnostenský Pomocník</h1>
-  <p>Průvodkyně světem živností pro Ruženku 🌸 &nbsp;·&nbsp; funguje offline, zdarma</p>
+  <p>Průvodkyně světem živností 🇨🇿 · Rozumí česky aj slovensky 🇸🇰 · zdarma &amp; offline</p>
 </header>
-
 <main class="chat" aria-label="Chatbot Ruženka">
-  <nav aria-label="Rychlá témata">
+  <nav aria-label="Rychlá témata / Rýchle témy">
     <div class="chips" role="list">
-      <button class="chip" data-q="jak zaregistrovat živnost">📋 Registrace</button>
-      <button class="chip" data-q="jaké daně musím platit">💰 Daně</button>
-      <button class="chip" data-q="pojistné studentka osvč vedlejší">🏥 Pojistné studentky</button>
+      <button class="chip" data-q="jak zaregistrovat živnost">📋 Registrace / Registrácia</button>
+      <button class="chip" data-q="jaké daně musím platit">💰 Daně / Dane</button>
+      <button class="chip" data-q="pojistné studentka osvč vedlejší">🏥 Pojistné / Poistné</button>
       <button class="chip" data-q="dpp a živnost zároveň">📄 DPP + živnost</button>
       <button class="chip" data-q="co jsou paušální výdaje">🧾 Paušální výdaje</button>
-      <button class="chip" data-q="co se stane po skončení školy">🎓 Po škole</button>
+      <button class="chip" data-q="co se stane po skončení školy">🎓 Po škole / Po škole</button>
       <button class="chip" data-q="výhody a nevýhody živnosti">⚖️ Výhody vs. nevýhody</button>
-      <button class="chip" data-q="jak vystavit fakturu">🧾 Faktura</button>
-      <button class="chip" data-q="firma mě nutí k iče švarcsystém">⚠️ Firma nutí k IČO</button>
-      <button class="chip" data-q="kolik vydělám čistého kalkulace">🔢 Čistý příjem</button>
+      <button class="chip" data-q="jak vystavit fakturu">🧾 Faktura / Faktúra</button>
+      <button class="chip" data-q="firma mě nutí k ičo švarcsystém">⚠️ Firma nutí k IČO</button>
+      <button class="chip" data-q="kolik vydělám čistého">🔢 Čistý příjem / Príjem</button>
     </div>
   </nav>
-
   <div class="msgs" id="msgsEl" role="log" aria-live="polite"></div>
-
   <div class="inp-row">
     <div class="inp-wrap">
-      <label for="msgIn" class="sr">Napiš zprávu</label>
-      <textarea id="msgIn" rows="1" placeholder="Napiš otázku… (Enter = odeslat, Shift+Enter = nový řádek) 🌸"></textarea>
+      <label for="msgIn" class="sr">Napiš zprávu / Napíš správu</label>
+      <textarea id="msgIn" rows="1" placeholder="Napiš otázku česky nebo slovensky… 🌸"></textarea>
     </div>
     <button class="send-btn" id="sendBtn" aria-label="Odeslat" title="Odeslat">🌹</button>
   </div>
 </main>
-
 <script>
+// ── LANGUAGE DETECTION ────────────────────────────────────────────────────────
+function isSlovak(q) {
+  // Slovak-exclusive characters
+  if (/[ľŕĺä]/.test(q)) return true;
+  const n = norm(q);
+  const sk = ['kolko','chcem','potrebujem','vydavky','poistne','odvody',
+               'zarobim','zarobis','registracia','mozem','neviem',' viem ',
+               'poistu','prihlas sa','ako sa','ako si',' ako ','aky ','ake ',
+               'zivnost','zivnostnik','podnikanie','zamestnanie','pracovat'];
+  const cz = ['kolik','chci','potrebuji','vydaje','pojistne','vydelam',
+               'jsem','mohu','muzem','nevim','jak se','jak si',' jak '];
+  const skHits = sk.filter(w => n.includes(w)).length;
+  const czHits = cz.filter(w => n.includes(w)).length;
+  return skHits > czHits;
+}
+
+// ── NORMALIZER ────────────────────────────────────────────────────────────────
+function norm(s) {
+  return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')
+          .replace(/[?!.,;:()]/g,' ').replace(/\s+/g,' ').trim();
+}
+
 // ── KNOWLEDGE BASE ────────────────────────────────────────────────────────────
 const KB = [
-  {
-    keys: ['registr','založ','živnost','ičo','jak si','jak začít','živnostenský úřad','jrf'],
-    title: 'Jak si zaregistrovat živnost',
-    text: `<p>Postup je jednodušší, než to vypadá – zvládneš ho sama za hodinu 🌸</p>
+// ── WELCOME / GREETING ────────────────────────────────────────────────────────
+{
+  keys:['ahoj','cau','nazdar','zdravim','dobry','hi ','hello','dobrý den','dobry den','vitaj','vita'],
+  text:`<p>Ahoj! 🌹 Jsem <b>Ruženka</b>, tvoje průvodkyně světem živností v ČR.</p>
+<p>Na co se chceš zeptat? Klidně piš česky nebo slovensky, rozumím oběma jazykům 🌸</p>`,
+  textSK:`<p>Ahoj! 🌹 Som <b>Ruženka</b>, tvoja sprievodkyňa svetom živností v ČR.</p>
+<p>Na čo sa chceš opýtať? Kľudne píš po česky alebo slovensky, rozumiem obom jazykom 🌸</p>`
+},
+// ── THANKS ────────────────────────────────────────────────────────────────────
+{
+  keys:['diky','dekuji','dekuju','super','skvele','pomohl','pomohla','perfekt','vyborn','dobre','dik','vdaka','dakujem','super','skvelé','pomohlo'],
+  text:`<p>Ráda pomohla! 🌹 Pokud máš další otázky, klidně se ptej 🌸</p>`,
+  textSK:`<p>Rada som pomohla! 🌹 Ak máš ďalšie otázky, kľudne sa pýtaj 🌸</p>`
+},
+// ── REGISTRATION ──────────────────────────────────────────────────────────────
+{
+  keys:['registr','zaloz','založ','ico','ičo','jak zacit','jak začít','zacit podnikat','zacnem podnikat',
+        'živnost','zivnost','zivnostensky','živnostenský','jrf','formulár','formular','urad','úřad',
+        'jak si','zridit','zřídit','zriadit','zaregistrovat','zaregistrovať','ako začať','ako zacit',
+        'ako si','registracia','registrácia','podnikat','podnikanie','podnikání','ico chcem','chcem ico',
+        'potrebujem ico','potřebuji ico','živnostník','zivnostnik','zivnostnicky'],
+  text:`<p>Postup je jednodušší, než to vypadá – zvládneš to sama za hodinu 🌸</p>
 <h3>Krok za krokem</h3>
 <ul>
 <li><b>1.</b> Vyplň <b>Jednotný registrační formulář (JRF)</b> – online na <b>gov.cz</b> nebo osobně na živnostenském úřadě</li>
 <li><b>2.</b> Přilož: občanský průkaz, adresu provozovny (může být tvoje bydliště)</li>
-<li><b>3.</b> Zaplať správní poplatek: <b>volná živnost = ZDARMA</b>, vázaná = 1 000 Kč/obor</li>
+<li><b>3.</b> Zaplať: <b>volná živnost = ZDARMA</b>, vázaná = 1 000 Kč/obor</li>
 <li><b>4.</b> Počkej do <b>5 pracovních dnů</b> → dostaneš živnostenský list a IČO</li>
-<li><b>5.</b> Přihlas se na <b>OSSZ</b> (sociální pojišťovna) do <b>8 dnů</b> od zahájení</li>
-<li><b>6.</b> Přihlas se na svou <b>zdravotní pojišťovnu</b> do <b>8 dnů</b></li>
+<li><b>5.</b> Přihlas se na <b>OSSZ</b> do <b>8 dnů</b> od zahájení</li>
+<li><b>6.</b> Přihlas se na <b>zdravotní pojišťovnu</b> do <b>8 dnů</b></li>
 </ul>
 <h3>Typy živností</h3>
 <ul>
-<li><b>Volná</b> – IT, administrativa, grafika, marketing, překlady, copywriting, obchod, úklid… → zdarma, bez požadavků</li>
-<li><b>Vázaná</b> – účetnictví, průvodce, masér, realitní makléř… → vyžaduje vzdělání, 1 000 Kč/obor</li>
-<li><b>Koncesovaná</b> – zbraně, taxi, alkohol… → potřebuješ státní povolení</li>
+<li><b>Volná</b> – IT, administrativa, grafika, marketing, překlady… → zdarma, bez požadavků</li>
+<li><b>Vázaná</b> – účetnictví, průvodce, masér… → vzdělání + 1 000 Kč/obor</li>
+<li><b>Koncesovaná</b> – zbraně, taxi, alkohol… → státní povolení</li>
 </ul>
-<p>Nejspíš ti bude stačit <b>volná živnost</b> – je nejlevnější a nevyžaduje žádné certifikáty.</p>`
-  },
-  {
-    keys: ['daň','daně','přiznání','základ daně','sazba','15%','odvod','zákon'],
-    title: 'Daně – co a kolik zaplatíš',
-    text: `<h3>Daň z příjmů fyzických osob</h3>
+<p>Nejspíš ti bude stačit <b>volná živnost</b> – je nejlevnější a nevyžaduje žádné certifikáty.</p>`,
+  textSK:`<p>Postup je jednoduchší, než to vyzerá – zvládneš to sama za hodinu 🌸</p>
+<h3>Krok za krokom</h3>
+<ul>
+<li><b>1.</b> Vyplň <b>Jednotný registračný formulár (JRF)</b> – online na <b>gov.cz</b> alebo osobne na živnostenskom úrade</li>
+<li><b>2.</b> Prilož: občiansky preukaz, adresu prevádzkarne (môže byť tvoje bydlisko)</li>
+<li><b>3.</b> Zaplať: <b>voľná živnosť = ZADARMO</b>, viazaná = 1 000 Kč/obor</li>
+<li><b>4.</b> Počkaj do <b>5 pracovných dní</b> → dostaneš živnostenský list a IČO</li>
+<li><b>5.</b> Prihlás sa na <b>OSSZ</b> do <b>8 dní</b> od začatia</li>
+<li><b>6.</b> Prihlás sa na <b>zdravotnú poisťovňu</b> do <b>8 dní</b></li>
+</ul>
+<h3>Typy živností</h3>
+<ul>
+<li><b>Voľná</b> – IT, administratíva, grafika, marketing, preklady… → zadarmo, bez požiadaviek</li>
+<li><b>Viazaná</b> – účtovníctvo, sprievodca, masér… → vzdelanie + 1 000 Kč/obor</li>
+<li><b>Koncesovaná</b> – zbrane, taxi, alkohol… → štátne povolenie</li>
+</ul>
+<p>Najskôr ti bude stačiť <b>voľná živnosť</b> – je najlacnejšia a nevyžaduje žiadne certifikáty.</p>`
+},
+// ── TAXES ─────────────────────────────────────────────────────────────────────
+{
+  keys:['dan','daň','daně','dane','priznani','přiznání','daňové','danove','sazba','15%','kolik zaplatim',
+        'kolko zaplatim','kolik platim','kolko platim','zdaneni','zdanění','odvod dan','odv dan',
+        'danit','zdanit','prijem dan','prijem zdanit','zaplatit stat','zaplatim statu'],
+  text:`<h3>Daň z příjmů fyzických osob</h3>
 <ul>
 <li>Sazba: <b>15 %</b> ze základu daně</li>
 <li>Základ daně = příjmy − výdaje</li>
-<li>Daňové přiznání: podat do <b>31. března</b> (nebo 1. července, pokud máš daňového poradce)</li>
+<li>Přiznání: do <b>31. března</b> (nebo 1. července s daňovým poradcem)</li>
 </ul>
 <h3>Slevy na dani – snižují přímo daň 🌸</h3>
 <ul>
 <li>Sleva na poplatníka: <b>30 840 Kč/rok</b> – má každý automaticky</li>
 <li>Sleva na studenta: <b>4 020 Kč/rok</b> – dokud jsi studentka</li>
-<li>Celkem: <b>34 860 Kč/rok</b> v slevách!</li>
+<li>Celkem: <b>34 860 Kč/rok</b> → při nižších příjmech daň = 0 Kč!</li>
 </ul>
-<h3>Praktický příklad</h3>
-<p>Příjmy ze živnosti <b>200 000 Kč</b> + paušální výdaje 60 % = základ daně 80 000 Kč → daň 12 000 Kč → po slevách: <b>daň = 0 Kč</b> ✅</p>
-<p>Při příjmech do cca <b>230 000 Kč/rok</b> pravděpodobně nezaplatíš na dani nic (při paušálu 60 %).</p>`
-  },
-  {
-    keys: ['paušální výdaje','paušál','60%','80%','výdaje','náklady','účtenk','evidenc'],
-    title: 'Paušální výdaje – nejjednodušší varianta',
-    text: `<h3>Co jsou paušální výdaje?</h3>
-<p>Místo sbírání každé účtenky si prostě odečteš <b>pevné % z příjmů</b> jako výdaje. Jednoduchý, oblíbený, legální.</p>
-<h3>Kolik % podle typu živnosti</h3>
+<h3>Příklad</h3>
+<p>Příjmy <b>200 000 Kč</b> + paušál 60 % = základ 80 000 Kč → daň 12 000 Kč → po slevách: <b>daň = 0 Kč ✅</b></p>`,
+  textSK:`<h3>Daň z príjmov fyzických osôb</h3>
 <ul>
-<li><b>60 %</b> – volná živnost (IT, administrativa, grafika, obchod, marketing, překlady…)</li>
-<li><b>80 %</b> – vázaná nebo řemeslná živnost</li>
+<li>Sadzba: <b>15 %</b> zo základu dane</li>
+<li>Základ dane = príjmy − výdavky</li>
+<li>Daňové priznanie: do <b>31. marca</b> (alebo 1. júla s daňovým poradcom)</li>
+</ul>
+<h3>Zľavy na dani – znižujú priamo daň 🌸</h3>
+<ul>
+<li>Zľava na poplatníka: <b>30 840 Kč/rok</b> – má každý automaticky</li>
+<li>Zľava na študenta: <b>4 020 Kč/rok</b> – pokiaľ si stále študentka</li>
+<li>Celkom: <b>34 860 Kč/rok</b> → pri nižších príjmoch daň = 0 Kč!</li>
+</ul>
+<h3>Príklad</h3>
+<p>Príjmy <b>200 000 Kč</b> + paušál 60 % = základ 80 000 Kč → daň 12 000 Kč → po zľavách: <b>daň = 0 Kč ✅</b></p>`
+},
+// ── PAUSAL VYDAJE ─────────────────────────────────────────────────────────────
+{
+  keys:['pausalni','paušální','pausalne','paušálne','vydaje','výdaje','vydavky','výdavky',
+        'pausal','paušál','60 proc','60%','uplatnit','uplatit','odpocet','odpočet','ucteny','účtenky',
+        'sberat','sbírat','zbierat','naklady','náklady','co si muzu odecist','co si mozem odecist'],
+  text:`<h3>Paušální výdaje – nejjednodušší varianta</h3>
+<p>Místo sbírání účtenek si odečteš pevné % z příjmů. Jednoduchý, oblíbený, legální.</p>
+<h3>Kolik % podle živnosti</h3>
+<ul>
+<li><b>60 %</b> – volná živnost (IT, administrativa, grafika, marketing, překlady, copywriting…)</li>
+<li><b>80 %</b> – řemeslná nebo vázaná živnost</li>
 <li><b>40 %</b> – svobodná povolání (architekt, lékař, právník…)</li>
 </ul>
 <h3>Příklad výpočtu (60 %)</h3>
 <ul>
 <li>Příjmy: 200 000 Kč</li>
 <li>Výdaje (60 %): 120 000 Kč – <i>nemusíš nic dokládat!</i></li>
-<li>Základ daně: 80 000 Kč</li>
-<li>Daň (15 %): 12 000 Kč</li>
-<li>Sleva na poplatníka + studenta: −34 860 Kč</li>
-<li><b>Výsledná daň: 0 Kč ✅</b></li>
+<li>Základ daně: 80 000 Kč → Daň: 12 000 Kč → Po slevách: <b>0 Kč ✅</b></li>
+</ul>`,
+  textSK:`<h3>Paušálne výdavky – najjednoduchšia varianta</h3>
+<p>Namiesto zbierania účteniek si odpočítaš pevné % z príjmov. Jednoduché, obľúbené, legálne.</p>
+<h3>Koľko % podľa živnosti</h3>
+<ul>
+<li><b>60 %</b> – voľná živnosť (IT, administratíva, grafika, marketing, preklady…)</li>
+<li><b>80 %</b> – remeselná alebo viazaná živnosť</li>
+<li><b>40 %</b> – slobodné povolania (architekt, lekár, právnik…)</li>
 </ul>
-<p>Pokud máš hodně reálných nákladů (notebook, software, kurzy…), zvažte s účetní <b>skutečné výdaje</b> – tam sepisuješ vše, ale potřebuješ doklady.</p>`
-  },
-  {
-    keys: ['pojistn','zdravotní','sociální','ossz','zálohy','vedlejší','hlavní','osvč'],
-    title: 'Pojistné – sociální a zdravotní',
-    text: `<h3>Klíčový rozdíl: OSVČ vedlejší vs. hlavní</h3>
-<p><b>Ty jsi studentka → OSVČ VEDLEJŠÍ</b> 🌸 Tohle je pro tebe obrovská výhoda!</p>
+<h3>Príklad výpočtu (60 %)</h3>
+<ul>
+<li>Príjmy: 200 000 Kč</li>
+<li>Výdavky (60 %): 120 000 Kč – <i>nemusíš nič dokladať!</i></li>
+<li>Základ dane: 80 000 Kč → Daň: 12 000 Kč → Po zľavách: <b>0 Kč ✅</b></li>
+</ul>`
+},
+// ── INSURANCE ─────────────────────────────────────────────────────────────────
+{
+  keys:['pojistne','pojistní','pojistění','pojisten','pojisteni','poistne','poistní','poistenie',
+        'zdravotni','zdravotné','zdravotne','socialni','sociálne','socialn','ossz','zp','zaloh','zálohy',
+        'vedlejsi','vedlejší','vedlajsi','hlavni','hlavní','hlavna','osvč','szco','szčo','odvody',
+        'platit odvody','platit pojistne','platim','platím','platit zdravotni','platit socialn',
+        'pojistovna','pojišťovna','poisťovna','studentka pojist'],
+  text:`<h3>Klíčový rozdíl: OSVČ vedlejší vs. hlavní</h3>
+<p><b>Ty jsi studentka → OSVČ VEDLEJŠÍ</b> – a to je obrovská výhoda! 🌸</p>
 <h3>OSVČ vedlejší (ty, jako studentka do 26 let)</h3>
 <ul>
-<li><b>Zdravotní zálohy: 0 Kč</b> – jsi pojištěna státem jako studentka!</li>
-<li><b>Sociální zálohy: 0 Kč</b> – pokud příjem ze živnosti nepřesáhne <b>111 736 Kč/rok</b> (2024)</li>
-<li>Pokud příjem přesáhne limit → minimální záloha na sociální: ~<b>1 496 Kč/měsíc</b></li>
+<li><b>Zdravotní zálohy: 0 Kč</b> – jsi pojištěna státem!</li>
+<li><b>Sociální zálohy: 0 Kč</b> – pokud příjem ze živnosti nepřesáhne <b>111 736 Kč/rok</b></li>
+<li>Při překročení limitu → záloha ~<b>1 496 Kč/měsíc</b></li>
 </ul>
 <h3>OSVČ hlavní (po ukončení studia)</h3>
 <ul>
-<li>Sociální zálohy: minimum <b>~3 852 Kč/měsíc</b></li>
-<li>Zdravotní zálohy: minimum <b>~2 968 Kč/měsíc</b></li>
+<li>Sociální: minimum <b>~3 852 Kč/měsíc</b></li>
+<li>Zdravotní: minimum <b>~2 968 Kč/měsíc</b></li>
 <li>Celkem: <b>~6 820 Kč/měsíc</b> povinně</li>
 </ul>
-<p>⚠️ Po skončení školy musíš změnu oznámit OSSZ a ZP do <b>8 dnů!</b></p>`
-  },
-  {
-    keys: ['dpp','dohoda','provedení','práce','kombinac','zároveň','dvě práce','druhá práce'],
-    title: 'DPP + živnost zároveň',
-    text: `<h3>Ano, jde to kombinovat – je to legální! ✅</h3>
-<p>Máš DPP u dvou firem a zároveň si zakládáš živnost? Žádný problém.</p>
+<p>⚠️ Po skončení školy musíš změnu oznámit OSSZ a ZP do <b>8 dnů!</b></p>`,
+  textSK:`<h3>Kľúčový rozdiel: SZČO vedľajšia vs. hlavná</h3>
+<p><b>Ty si študentka → SZČO VEDĽAJŠIA</b> – a to je obrovská výhoda! 🌸</p>
+<h3>SZČO vedľajšia (ty, ako študentka do 26 rokov)</h3>
+<ul>
+<li><b>Zdravotné zálohy: 0 Kč</b> – si poistená štátom!</li>
+<li><b>Sociálne zálohy: 0 Kč</b> – ak príjem zo živnosti neprekročí <b>111 736 Kč/rok</b></li>
+<li>Pri prekročení limitu → záloha ~<b>1 496 Kč/mesiac</b></li>
+</ul>
+<h3>SZČO hlavná (po ukončení štúdia)</h3>
+<ul>
+<li>Sociálne: minimum <b>~3 852 Kč/mesiac</b></li>
+<li>Zdravotné: minimum <b>~2 968 Kč/mesiac</b></li>
+<li>Celkom: <b>~6 820 Kč/mesiac</b> povinne</li>
+</ul>
+<p>⚠️ Po skončení školy musíš zmenu oznámiť OSSZ a ZP do <b>8 dní!</b></p>`
+},
+// ── DPP ───────────────────────────────────────────────────────────────────────
+{
+  keys:['dpp','dohoda','provedeni','provedení','vykoni','vykonaní','kombinac','zaroven','zároveň',
+        'soucasne','současně','dve prace','dvě práce','dve zamestnania','druha prace','druhá práce',
+        'mohu mit dpp','mozem mat dpp','muzu mit','mam dpp','mám dpp','pracovat na dpp',
+        'pracovat zaroven','druhy zamestnavatel','druhy zaměstnavatel'],
+  text:`<h3>Ano, DPP + živnost jde kombinovat! ✅</h3>
+<p>Máš DPP u dvou firem a zakládáš živnost? Žádný problém, je to legální.</p>
 <h3>DPP pravidla (2024)</h3>
 <ul>
-<li>Do <b>10 000 Kč/měsíc</b> u jednoho zaměstnavatele: bez odvodů (srážková daň nebo daňové přiznání)</li>
+<li>Do <b>10 000 Kč/měsíc</b> u jednoho zaměstnavatele: bez odvodů</li>
 <li>Nad 10 001 Kč/měsíc: zaměstnavatel odvede pojistné za tebe</li>
 </ul>
 <h3>Při kombinaci DPP + živnost</h3>
 <ul>
 <li>Daňové přiznání podáváš <b>vždy povinně</b></li>
-<li>Příjmy z DPP + příjmy ze živnosti se sčítají pro výpočet daně</li>
+<li>Příjmy z DPP + ze živnosti se sčítají pro výpočet daně</li>
 <li>Zdravotní ze živnosti: <b>0 Kč</b> (studentka → stát platí)</li>
 <li>Sociální ze živnosti: dle příjmu (vedlejší OSVČ)</li>
-<li>U druhé DPP si dávej pozor, aby zaměstnavatel věděl, že jsi OSVČ – nemá to vliv, ale je dobré mít pořádek</li>
-</ul>`
-  },
-  {
-    keys: ['faktur','vystavit','doklad','číslo','duzp','splatnost','záloha','invoice'],
-    title: 'Jak vystavit fakturu',
-    text: `<h3>Co musí faktura povinně obsahovat</h3>
+</ul>`,
+  textSK:`<h3>Áno, DPP + živnosť ide kombinovať! ✅</h3>
+<p>Máš DPP u dvoch firiem a zakladáš živnosť? Žiadny problém, je to legálne.</p>
+<h3>DPP pravidlá (2024)</h3>
 <ul>
-<li><b>Číslo faktury</b> – vlastní číselná řada (např. 2024001, 2024002…)</li>
+<li>Do <b>10 000 Kč/mesiac</b> u jedného zamestnávateľa: bez odvodov</li>
+<li>Nad 10 001 Kč/mesiac: zamestnávateľ odvedie poistné za teba</li>
+</ul>
+<h3>Pri kombinácii DPP + živnosť</h3>
+<ul>
+<li>Daňové priznanie podávaš <b>vždy povinne</b></li>
+<li>Príjmy z DPP + zo živnosti sa sčítavajú pre výpočet dane</li>
+<li>Zdravotné zo živnosti: <b>0 Kč</b> (študentka → štát platí)</li>
+<li>Sociálne zo živnosti: podľa príjmu (vedľajšia SZČO)</li>
+</ul>`
+},
+// ── INVOICE ───────────────────────────────────────────────────────────────────
+{
+  keys:['faktur','faktúr','doklad','duzp','splatnost','splatnosť','invoice','vystavit','vystaviť',
+        'co musi obsahovat','co musí obsahovať','co na fakturu','co na faktúru','jak vystavit',
+        'ako vystavit','faktura obsahuje','faktura musí','vyúčtovanie','vyuctovanie','cislo faktury',
+        'číslo faktury','archivovat','archivovať'],
+  text:`<h3>Co musí faktura obsahovat</h3>
+<ul>
+<li><b>Číslo faktury</b> – vlastní číselná řada (2024001, 2024002…)</li>
 <li><b>Datum vystavení</b></li>
 <li><b>DUZP</b> – datum uskutečnění zdanitelného plnění (kdy jsi práci dokončila)</li>
 <li><b>Tvoje údaje:</b> jméno, adresa, <b>IČO</b></li>
 <li><b>Odběratel:</b> název firmy, adresa, IČO</li>
-<li><b>Popis plnění</b> – co konkrétně jsi dodala</li>
-<li><b>Cena</b> – neplátce DPH: jen celková částka bez DPH</li>
+<li><b>Popis plnění</b> – co jsi dodala</li>
+<li><b>Cena</b> – neplátce DPH: jen celková částka</li>
 <li><b>Způsob platby</b>, číslo účtu, datum splatnosti</li>
 </ul>
-<h3>Praktické tipy</h3>
+<h3>Tipy</h3>
 <ul>
-<li>Jako neplátce DPH (obrat pod 2 mil. Kč/rok) <b>DPH na faktuře neuvádíš</b></li>
+<li>Neplátce DPH (obrat pod 2 mil./rok) – <b>DPH neuvádíš</b></li>
 <li>Archivuj faktury min. <b>5–10 let</b></li>
-<li>Bezplatné nástroje: <b>fakturoid.cz</b> (zkušební verze), <b>billin.eu</b>, nebo Excel šablona</li>
-</ul>`
-  },
-  {
-    keys: ['švarc','ileg','nutí','nutit','firma','zaměstnanec','závislá','povinnost','zaměstnanecký'],
-    title: 'Firma mě nutí k IČO – co s tím?',
-    text: `<h3>Co je švarcsystém?</h3>
-<p>Švarcsystém = <b>nelegální praxe</b>, kdy firma nutí lidi pracovat na IČO místo pracovní smlouvy/DPP, i když práce má znaky závislé práce.</p>
-<h3>Znaky závislé práce (kde by měla být smlouva)</h3>
+<li>Bezplatné nástroje: <b>fakturoid.cz</b>, <b>billin.eu</b></li>
+</ul>`,
+  textSK:`<h3>Čo musí faktúra obsahovať</h3>
 <ul>
-<li>Pevně stanovená pracovní doba</li>
+<li><b>Číslo faktúry</b> – vlastná číselná rada (2024001, 2024002…)</li>
+<li><b>Dátum vystavenia</b></li>
+<li><b>DUZP</b> – dátum uskutočnenia zdaniteľného plnenia (kedy si prácu dokončila)</li>
+<li><b>Tvoje údaje:</b> meno, adresa, <b>IČO</b></li>
+<li><b>Odberateľ:</b> názov firmy, adresa, IČO</li>
+<li><b>Popis plnenia</b> – čo si dodala</li>
+<li><b>Cena</b> – neplátca DPH: len celková suma</li>
+<li><b>Spôsob platby</b>, číslo účtu, dátum splatnosti</li>
+</ul>
+<h3>Tipy</h3>
+<ul>
+<li>Neplátca DPH (obrat pod 2 mil./rok) – <b>DPH neuvádzaš</b></li>
+<li>Archivuj faktúry min. <b>5–10 rokov</b></li>
+<li>Bezplatné nástroje: <b>fakturoid.cz</b>, <b>billin.eu</b></li>
+</ul>`
+},
+// ── SVARC / FORCED ICO ────────────────────────────────────────────────────────
+{
+  keys:['svarc','švarc','nuti','nutí','donuti','donúti','firma chce','firma požaduje','firma rika',
+        'firma říká','ileg','švarcsystem','svarcsystem','zavisla prace','závislá práce','zavislá práca',
+        'pracovni pomer','pracovní poměr','pracovny pomer','misto dpp','místo dpp','namiesto dpp',
+        'proc chce ico','proč chce ico','preco chce ico','firma ico','nutit k ico'],
+  text:`<h3>Firma tě nutí k IČO – co to znamená?</h3>
+<p><b>Švarcsystém</b> = nelegální praxe, kdy firma nutí pracovat na IČO místo smlouvy/DPP, i když práce má znaky závislé práce.</p>
+<h3>Znaky závislé práce</h3>
+<ul>
+<li>Pevná pracovní doba daná firmou</li>
 <li>Práce výhradně na místě a nástroji firmy</li>
 <li>Firma řídí a kontroluje práci</li>
-<li>Výlučnost – pracuješ jen pro ně</li>
+<li>Pracuješ jen pro jednoho zaměstnavatele</li>
 </ul>
 <h3>Proč to firmy dělají</h3>
-<p>Ušetří <b>~34 % odvodů</b> zaměstnavatele. Pro tebe to znamená vyšší hrubá částka na faktuře, ale veškerá zodpovědnost (daně, odvody) padá na tebe.</p>
-<h3>Co doporučuji</h3>
+<p>Ušetří <b>~34 % odvodů</b> zaměstnavatele. Pro tebe to znamená vyšší částka na faktuře, ale zodpovědnost za daně a odvody padá na tebe.</p>
+<h3>Doporučení</h3>
 <ul>
-<li>Porovnej: co ti nabízejí na faktuře vs. co by ti dali jako DPP – rozdíl bývá malý</li>
-<li>Pokud práce skutečně má znaky závislé práce → firma porušuje zákoník práce</li>
-<li>V praxi to mnoho lidí akceptuje – je to tvoje rozhodnutí</li>
+<li>Porovnej: kolik nabízejí na faktuře vs. co by ti dali na DPP</li>
+<li>Pokud práce má znaky závislé práce → firma porušuje zákoník práce</li>
 <li>Při pochybnostech se poraď s <b>pracovněprávním poradcem</b></li>
-</ul>`
-  },
-  {
-    keys: ['po škole','ukončení','ukončit','2027','únor','březen','magistr','bakalář','diplom','absolvov'],
-    title: 'Co se stane po skončení školy (únor/březen 2027)',
-    text: `<h3>⚠️ Povinnosti do 8 dnů po ukončení studia</h3>
+</ul>`,
+  textSK:`<h3>Firma ťa núti k IČO – čo to znamená?</h3>
+<p><b>Švarcsystém</b> = nelegálna prax, keď firma núti pracovať na IČO namiesto zmluvy/DPP, hoci práca má znaky závislej práce.</p>
+<h3>Znaky závislej práce</h3>
 <ul>
-<li>Oznámit <b>OSSZ</b> (česká správa sociálního zabezpečení), že přestáváš být studentkou</li>
-<li>Oznámit svou <b>zdravotní pojišťovnu</b> – stát přestane platit za tebe</li>
+<li>Pevný pracovný čas daný firmou</li>
+<li>Práca výhradne na mieste a nástroji firmy</li>
+<li>Firma riadi a kontroluje prácu</li>
+<li>Pracuješ len pre jedného zamestnávateľa</li>
+</ul>
+<h3>Prečo to firmy robia</h3>
+<p>Ušetria <b>~34 % odvodov</b> zamestnávateľa. Pre teba to znamená vyššia suma na faktúre, ale zodpovednosť za dane a odvody padá na teba.</p>
+<h3>Odporúčanie</h3>
+<ul>
+<li>Porovnaj: koľko ponúkajú na faktúre vs. čo by ti dali na DPP</li>
+<li>Ak práca má znaky závislej práce → firma porušuje zákonník práce</li>
+<li>Pri pochybnostiach sa poraď s <b>pracovnoprávnym poradcom</b></li>
+</ul>`
+},
+// ── AFTER SCHOOL ──────────────────────────────────────────────────────────────
+{
+  keys:['po skole','po škole','po studiu','po studiu','ukonceni','ukončení','ukoncit','ukončit',
+        'absolvent','absolventka','diplom','bakalář','bakalár','2027','unor','únor','brezen','březen',
+        'skoncit skolu','skončit školu','skoncit studium','konec studia','po skonceni','promoci',
+        'promocia','co potom','co pak','co dalej','co ďalej','zmeni se','změní se','zmeni sa'],
+  text:`<h3>Co se změní po skončení školy (únor/březen 2027)</h3>
+<p>⚠️ <b>Musíš oznámit změnu do 8 dnů!</b></p>
+<ul>
+<li>Oznámit <b>OSSZ</b>, že přestáváš být studentkou</li>
+<li>Oznámit svou <b>zdravotní pojišťovnu</b></li>
 </ul>
 <h3>Finanční dopad</h3>
-<p>Ze <b>OSVČ vedlejší</b> se staneš <b>OSVČ hlavní</b> – přibudou povinné zálohy:</p>
+<p>Ze <b>OSVČ vedlejší</b> → <b>OSVČ hlavní</b>. Přibudou zálohy:</p>
 <ul>
-<li>Sociální zálohy: minimum <b>~3 852 Kč/měsíc</b></li>
-<li>Zdravotní zálohy: minimum <b>~2 968 Kč/měsíc</b></li>
+<li>Sociální: minimum <b>~3 852 Kč/měsíc</b></li>
+<li>Zdravotní: minimum <b>~2 968 Kč/měsíc</b></li>
 <li>Celkem navíc: <b>~6 820 Kč/měsíc</b></li>
 </ul>
 <h3>Jak to řešit</h3>
 <ul>
-<li>Pokud <b>nastoupíš do zaměstnání</b> → zase vedlejší OSVČ (zaměstnavatel odvádí pojistné z pracovního poměru) ✅</li>
-<li>Pokud <b>zůstaneš jen na živnosti</b> → OSVČ hlavní, vyšší zálohy</li>
-<li>Zálohy se platí <b>dopředu</b> a jednou ročně se vyrovnají v přehledu OSVČ</li>
-</ul>`
-  },
-  {
-    keys: ['výhod','nevýhod','pro a proti','výhody','nevýhody','proč ano','proč ne'],
-    title: 'Výhody a nevýhody živnosti',
-    text: `<h3>✅ Výhody</h3>
+<li><b>Nastoupíš do zaměstnání</b> → zase vedlejší OSVČ, nižší zálohy ✅</li>
+<li><b>Zůstaneš jen na živnosti</b> → OSVČ hlavní, vyšší zálohy</li>
+</ul>`,
+  textSK:`<h3>Čo sa zmení po skončení školy (február/marec 2027)</h3>
+<p>⚠️ <b>Musíš oznámiť zmenu do 8 dní!</b></p>
 <ul>
-<li><b>Paušální výdaje</b> → výrazně nižší základ daně, bez sbírání účtenek</li>
-<li>Jako vedlejší OSVČ studentka → <b>zdravotní pojistné 0 Kč</b>, sociální možná taky 0 Kč!</li>
-<li>Flexibilní pracovní podmínky</li>
-<li>Jednoduché a <b>levné zřízení</b> (volná živnost zdarma)</li>
-<li>Možnost odpočtu reálných výdajů (notebook, software, kurzy)</li>
-<li>Základ pro budoucí podnikání</li>
+<li>Oznámiť <b>OSSZ</b>, že prestávaš byť študentkou</li>
+<li>Oznámiť svoju <b>zdravotnú poisťovňu</b></li>
 </ul>
-<h3>❌ Nevýhody</h3>
+<h3>Finančný dopad</h3>
+<p>Zo <b>SZČO vedľajšej</b> → <b>SZČO hlavná</b>. Pribudnú zálohy:</p>
 <ul>
-<li>Administrativní zátěž: daňové přiznání, zálohy, faktury jednou ročně</li>
-<li>Po skončení školy: <b>~6 820 Kč/měsíc</b> navíc na odvodech</li>
-<li>Žádná <b>placená dovolená</b> ani nemocenská (pouze dobrovolně)</li>
-<li>Zodpovědnost za daně a pojistné je <b>plně na tobě</b></li>
-<li>Banky někdy složitěji posuzují OSVČ při úvěru</li>
-<li>Faktury mohou být zaplaceny se zpožděním</li>
+<li>Sociálne: minimum <b>~3 852 Kč/mesiac</b></li>
+<li>Zdravotné: minimum <b>~2 968 Kč/mesiac</b></li>
+<li>Celkom navyše: <b>~6 820 Kč/mesiac</b></li>
+</ul>
+<h3>Ako to riešiť</h3>
+<ul>
+<li><b>Nastúpiš do zamestnania</b> → opäť vedľajšia SZČO, nižšie zálohy ✅</li>
+<li><b>Zostaneš len na živnosti</b> → SZČO hlavná, vyššie zálohy</li>
 </ul>`
-  },
-  {
-    keys: ['čistý','kolik vydělám','příjem','kalkulac','výpočet','čistá','netto','hrubá'],
-    title: 'Výpočet čistého příjmu ze živnosti',
-    text: `<h3>Příklad: příjmy 200 000 Kč/rok, volná živnost, studentka</h3>
+},
+// ── PROS/CONS ─────────────────────────────────────────────────────────────────
+{
+  keys:['vyhody','výhody','vyhoda','nevyhody','nevýhody','pro a proti','pre a proti','plusy','minusy',
+        'stoji to za to','stojí to za to','vyplatí se','vyplati se','ma to zmysel','ma to cenu',
+        'dobré na','zlé na','dobra na','zla na','klady','zápory','zapory','výhody živnosti',
+        'nevyhody zivnosti'],
+  text:`<h3>✅ Výhody živnosti</h3>
+<ul>
+<li>Paušální výdaje → <b>výrazně nižší daně</b>, bez účtenek</li>
+<li>Jako studentka: <b>zdravotní zálohy 0 Kč</b>, sociální možná taky 0 Kč</li>
+<li>Flexibilní pracovní podmínky</li>
+<li>Zřízení volné živnosti je <b>zdarma</b></li>
+<li>Možnost odpočtu reálných nákladů (notebook, software, kurzy)</li>
+</ul>
+<h3>❌ Nevýhody živnosti</h3>
+<ul>
+<li>Administrativní zátěž: přiznání, zálohy, faktury</li>
+<li>Po skončení školy: <b>~6 820 Kč/měsíc</b> navíc na odvodech</li>
+<li>Žádná placená dovolená ani nemocenská</li>
+<li>Zodpovědnost za daně je plně na tobě</li>
+<li>Banky někdy složitěji posuzují OSVČ při úvěru</li>
+</ul>`,
+  textSK:`<h3>✅ Výhody živnosti</h3>
+<ul>
+<li>Paušálne výdavky → <b>výrazne nižšie dane</b>, bez účteniek</li>
+<li>Ako študentka: <b>zdravotné zálohy 0 Kč</b>, sociálne možno tiež 0 Kč</li>
+<li>Flexibilné pracovné podmienky</li>
+<li>Zriadenie voľnej živnosti je <b>zadarmo</b></li>
+<li>Možnosť odpočtu reálnych nákladov (notebook, software, kurzy)</li>
+</ul>
+<h3>❌ Nevýhody živnosti</h3>
+<ul>
+<li>Administratívna záťaž: priznanie, zálohy, faktúry</li>
+<li>Po skončení školy: <b>~6 820 Kč/mesiac</b> navyše na odvodoch</li>
+<li>Žiadna platená dovolenka ani nemocenská</li>
+<li>Zodpovednosť za dane je plne na tebe</li>
+<li>Banky niekedy komplikovanejšie posudzujú SZČO pri úvere</li>
+</ul>`
+},
+// ── NET INCOME CALC ───────────────────────────────────────────────────────────
+{
+  keys:['cisty prijem','čistý příjem','cisty zisk','kolik vydelam','kolik vydělám','kolik zarobim',
+        'kolko zarobim','kolko vydelam','kolko si zarobim','kolko dostanem','kolik dostanem',
+        'kalkulac','vypocet','výpočet','vypočet','netto','hruba','hrubá','cistá mzda','čistá mzda',
+        'realne vydelek','reálný výdělek','kolik mi zbyde','kolko mi zostane','kolik zustane'],
+  text:`<h3>Příklad: 200 000 Kč/rok, volná živnost, studentka</h3>
 <ul>
 <li>Příjmy: <b>200 000 Kč</b></li>
 <li>Paušální výdaje (60 %): −120 000 Kč</li>
-<li>Základ daně: <b>80 000 Kč</b></li>
-<li>Daň (15 %): 12 000 Kč</li>
-<li>Sleva na poplatníka: −30 840 Kč</li>
-<li>Sleva na studenta: −4 020 Kč</li>
-<li><b>Výsledná daň: 0 Kč ✅</b></li>
-<li>Sociální pojistné (vedlejší, pod limitem 111 736 Kč): 0 Kč</li>
-<li>Zdravotní pojistné (studentka): 0 Kč</li>
-<li><b>Čistý příjem ≈ 200 000 Kč</b> (téměř brutto = netto!)</li>
+<li>Základ daně: 80 000 Kč → Daň (15 %): 12 000 Kč</li>
+<li>Slevy (poplatník + student): −34 860 Kč → <b>Daň: 0 Kč ✅</b></li>
+<li>Sociální (vedlejší, pod limitem): <b>0 Kč</b></li>
+<li>Zdravotní (studentka): <b>0 Kč</b></li>
+<li>Čistý příjem: <b>≈ 200 000 Kč</b></li>
 </ul>
-<h3>Příklad: příjmy 300 000 Kč/rok, studentka</h3>
+<h3>Příklad: 300 000 Kč/rok, studentka</h3>
 <ul>
-<li>Základ daně (po 60 % výdajích): 120 000 Kč</li>
-<li>Daň po slevách: 120 000 × 0,15 = 18 000 − 34 860 = <b>0 Kč</b></li>
-<li>Sociální (vedlejší, přesáhla limit): ~1 496 Kč/měsíc × 12 = ~17 952 Kč/rok</li>
-<li>Zdravotní: 0 Kč</li>
-<li><b>Čistý příjem ≈ 282 000 Kč</b></li>
-</ul>
-<p>Přesný výpočet závisí na konkrétních příjmech a výdajích – doporuč konzultaci s účetní 🌸</p>`
-  },
-  {
-    keys: ['paušální daň','paušál','jedna záloha','zjednodušen'],
-    title: 'Paušální daň – co to je?',
-    text: `<h3>Paušální daň = všechno v jedné záloze</h3>
-<p>Platíš jednu zálohu, která zahrnuje daň z příjmů + sociální + zdravotní. <b>Nemusíš podávat daňové přiznání.</b></p>
+<li>Základ daně: 120 000 Kč → Daň po slevách: <b>0 Kč</b></li>
+<li>Sociální (vedlejší, nad limitem): ~17 952 Kč/rok</li>
+<li>Čistý příjem: <b>≈ 282 000 Kč</b></li>
+</ul>`,
+  textSK:`<h3>Príklad: 200 000 Kč/rok, voľná živnosť, študentka</h3>
 <ul>
-<li>2025: <b>~8 498 Kč/měsíc</b> (1. pásmo, příjmy do 1 mil. Kč)</li>
-<li>Výhoda: jednodušší administrativa</li>
-<li>Nevýhoda: nemůžeš uplatnit slevy na dani (sleva na poplatníka, na studenta)</li>
+<li>Príjmy: <b>200 000 Kč</b></li>
+<li>Paušálne výdavky (60 %): −120 000 Kč</li>
+<li>Základ dane: 80 000 Kč → Daň (15 %): 12 000 Kč</li>
+<li>Zľavy (poplatník + študent): −34 860 Kč → <b>Daň: 0 Kč ✅</b></li>
+<li>Sociálne (vedľajšia, pod limitom): <b>0 Kč</b></li>
+<li>Zdravotné (študentka): <b>0 Kč</b></li>
+<li>Čistý príjem: <b>≈ 200 000 Kč</b></li>
 </ul>
-<h3>⚠️ Pro tebe NYNÍ NELZE</h3>
-<p>Paušální daň <b>nelze kombinovat s DPP</b> přesahujícím limit nebo se zaměstnáním. Protože ty máš DPP, paušální daň pro tebe momentálně nepřipadá v úvahu.</p>`
-  },
-  {
-    keys: ['dph','plátce','neplátce','obrat','2 miliony','daň z přidané'],
-    title: 'DPH – musím se registrovat?',
-    text: `<h3>Jako začínající živnostník/ka nejspíš DPH řešit nebudeš</h3>
+<h3>Príklad: 300 000 Kč/rok, študentka</h3>
 <ul>
-<li><b>Neplátce DPH</b> = fakturuješ bez DPH, jednodušší administrativa</li>
-<li>Stáváš se povinně plátcem až když obrat přesáhne <b>2 000 000 Kč/rok</b> (od 2025)</li>
-<li>Případně se můžeš přihlásit dobrovolně (má smysl pokud nakupuješ hodně s DPH)</li>
+<li>Základ dane: 120 000 Kč → Daň po zľavách: <b>0 Kč</b></li>
+<li>Sociálne (vedľajšia, nad limitom): ~17 952 Kč/rok</li>
+<li>Čistý príjem: <b>≈ 282 000 Kč</b></li>
+</ul>`
+},
+// ── PAUSALNI DAN ──────────────────────────────────────────────────────────────
+{
+  keys:['pausalni dan','paušální daň','pausalna dan','paušálna daň','jedna zaloh','jedna záloha',
+        'jedna platba','zjednoduseni','zjednodušení','zjednodusene','bez přiznání','bez priznania',
+        '8498','8 498','pausalni rezim','paušální režim'],
+  text:`<h3>Paušální daň – vše v jedné záloze</h3>
+<ul>
+<li>Jedna záloha = daň z příjmů + sociální + zdravotní</li>
+<li>2025: <b>~8 498 Kč/měsíc</b> (příjmy do 1 mil. Kč)</li>
+<li>Výhoda: nemusíš podávat daňové přiznání</li>
+<li>Nevýhoda: nemůžeš uplatnit slevy na dani</li>
 </ul>
-<p>Při běžných příjmech studentky se DPH nemusíš vůbec zabývat 🌸</p>`
-  },
-  {
-    keys: ['ahoj','zdravím','dobrý','čau','nazdar','hi','hello'],
-    title: null,
-    text: `<p>Ahoj! 🌹 Jsem Ruženka, tvoje průvodkyně světem živností v ČR.</p>
-<p>Na co se chceš zeptat? Klidně piš celou otázkou nebo klikni na jedno z témat nahoře 🌸</p>`
-  },
-  {
-    keys: ['díky','děkuji','super','skvělé','pomohl','pomohla','perfekt','výborn'],
-    title: null,
-    text: `<p>Ráda pomohla! 🌹 Pokud máš další otázky, klidně se ptej – jsem tu pro tebe 🌸</p>`
-  }
+<p>⚠️ <b>Pro tebe nyní NELZE</b> – nelze kombinovat s DPP přesahujícím limit nebo se zaměstnáním.</p>`,
+  textSK:`<h3>Paušálna daň – všetko v jednej zálohe</h3>
+<ul>
+<li>Jedna záloha = daň z príjmov + sociálne + zdravotné</li>
+<li>2025: <b>~8 498 Kč/mesiac</b> (príjmy do 1 mil. Kč)</li>
+<li>Výhoda: nemusíš podávať daňové priznanie</li>
+<li>Nevýhoda: nemôžeš uplatniť zľavy na dani</li>
+</ul>
+<p>⚠️ <b>Pre teba teraz NEJDE</b> – nedá sa kombinovať s DPP prekračujúcim limit alebo so zamestnaním.</p>`
+},
+// ── DPH ───────────────────────────────────────────────────────────────────────
+{
+  keys:['dph','platce dph','plátce dph','platca dph','neplátce','neplátca','obrat','dph registr',
+        'platit dph','platit dph','dan z pridane','daň z přidané','2 miliony','2000000'],
+  text:`<h3>DPH – musím se registrovat?</h3>
+<ul>
+<li><b>Neplátce DPH</b> = fakturuješ bez DPH – jednodušší</li>
+<li>Povinný plátce až při obratu přes <b>2 000 000 Kč/rok</b> (od 2025)</li>
+<li>Při běžných příjmech studentky se DPH nemusíš vůbec zabývat 🌸</li>
+</ul>`,
+  textSK:`<h3>DPH – musím sa registrovať?</h3>
+<ul>
+<li><b>Neplátca DPH</b> = fakturuješ bez DPH – jednoduchšie</li>
+<li>Povinný plátca až pri obrate nad <b>2 000 000 Kč/rok</b> (od 2025)</li>
+<li>Pri bežných príjmoch študentky sa DPH nemusíš vôbec zaoberať 🌸</li>
+</ul>`
+}
 ];
 
-// ── MATCHER ──────────────────────────────────────────────────────────────────
+// ── MATCHER ───────────────────────────────────────────────────────────────────
 function findAnswer(q) {
-  const input = q.toLowerCase()
-    .normalize('NFD').replace(/[̀-ͯ]/g,'')
-    .replace(/[?!.,;]/g,' ');
+  const n = norm(q);
+  const words = n.split(/\s+/).filter(w => w.length > 2);
 
   let best = null, bestScore = 0;
+
   for (const item of KB) {
     let score = 0;
     for (const key of item.keys) {
-      const k = key.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
-      if (input.includes(k)) score += k.length;
+      const k = norm(key);
+      if (!k) continue;
+
+      // Full phrase match — highest weight
+      if (n.includes(k)) {
+        score += k.length * 3;
+        continue;
+      }
+      // Word-level partial match — catches typos and short queries
+      for (const w of words) {
+        if (w.length < 3) continue;
+        if (w.includes(k) || k.includes(w)) {
+          score += Math.min(w.length, k.length) * 1.5;
+        }
+      }
     }
     if (score > bestScore) { bestScore = score; best = item; }
   }
 
-  if (bestScore === 0) {
-    return `<p>Hmm, na tuhle otázku nemám přesnou odpověď v databázi 🌸</p>
-<p>Zkus to jinak nebo klikni na jedno z témat nahoře. Případně se poraď s <b>daňovým poradcem nebo účetní</b> – pro konkrétní situace je to vždy nejlepší.</p>`;
+  const sk = isSlovak(q);
+
+  if (bestScore < 4 || !best) {
+    return sk
+      ? `<p>Hmm, na túto otázku nemám presnú odpoveď 🌸</p><p>Skús to inak alebo klikni na tému vyššie. Pre konkrétne situácie odporúčam konzultáciu s <b>daňovým poradcom</b>.</p>`
+      : `<p>Hmm, na tuhle otázku nemám přesnou odpověď 🌸</p><p>Zkus to jinak nebo klikni na téma nahoře. Pro konkrétní situace doporuč konzultaci s <b>daňovým poradcem</b>.</p>`;
   }
 
-  let html = '';
-  if (best.title) html += `<h3>${best.title}</h3>`;
-  html += best.text;
-  return html;
+  return sk && best.textSK ? best.textSK : best.text;
 }
 
 // ── DOM ───────────────────────────────────────────────────────────────────────
-const msgsEl  = document.getElementById('msgsEl');
-const msgIn   = document.getElementById('msgIn');
-const sendBtn = document.getElementById('sendBtn');
+const msgsEl   = document.getElementById('msgsEl');
+const msgIn    = document.getElementById('msgIn');
+const sendBtn  = document.getElementById('sendBtn');
 const themeBtn = document.getElementById('themeBtn');
 const petalsEl = document.getElementById('petals');
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
-(function init() {
-  const chars = ['🌸','🌹','🌺','🌷','💐','🌼','🌻'];
-  for (let i = 0; i < 8; i++) {
-    const p = document.createElement('span');
-    p.className = 'petal';
-    p.textContent = chars[i % chars.length];
-    p.style.cssText = `left:${Math.random()*100}%;font-size:${1.8+Math.random()*2.5}rem;`
+(function init(){
+  const chars=['🌸','🌹','🌺','🌷','💐','🌼','🌻'];
+  for(let i=0;i<8;i++){
+    const p=document.createElement('span'); p.className='petal';
+    p.textContent=chars[i%chars.length];
+    p.style.cssText=`left:${Math.random()*100}%;font-size:${1.8+Math.random()*2.5}rem;`
       +`animation-duration:${14+Math.random()*22}s;animation-delay:${Math.random()*-25}s`;
     petalsEl.appendChild(p);
   }
-  applyTheme(localStorage.getItem('ruz_theme') || 'light');
+  applyTheme(localStorage.getItem('ruz_theme')||'light');
   addMsg('bot',
-`<p>Ahoj! 🌹 Jsem <b>Ruženka</b>, tvoje offline průvodkyně světem živností v ČR.</p>
-<p>Jsem zdarma, funguju bez internetu a vím všechno o:</p>
+`<p>Ahoj! 🌹 Som <b>Ruženka</b> / Jsem <b>Ruženka</b> – tvoja sprievodkyňa svetom živností v ČR.</p>
+<p>Rozumiem <b>česky aj slovensky</b> 🇨🇿🇸🇰 – píš ako chceš, pochopím ťa aj pri chybách alebo vágnych otázkach.</p>
+<p>Viem ti poradiť s:</p>
 <ul>
-<li>Registraci živnosti a IČO</li>
-<li>Daních, slevách a paušálních výdajích</li>
-<li>Pojistném pro studentky (vedlejší OSVČ)</li>
-<li>Kombinaci DPP + živnost</li>
-<li>Co tě čeká po skončení školy</li>
-<li>Švarcsystému a firmách nutících k IČO</li>
+<li>Registráciou živnosti / Registrací živnosti</li>
+<li>Daňami, zľavami, paušálnymi výdavkami</li>
+<li>Poistným pre študentky (vedľajšia OSVČ / SZČO)</li>
+<li>Kombináciou DPP + živnosť</li>
+<li>Faktúrami, švarcsystémom, životom po škole</li>
 </ul>
-<p>Napiš otázku nebo klikni na téma nahoře 🌸</p>`
+<p>Napíš otázku alebo klikni na tému vyššie 🌸</p>`
   );
   msgIn.focus();
 })();
 
-// ── THEME ─────────────────────────────────────────────────────────────────────
-function applyTheme(t) {
-  document.documentElement.setAttribute('data-theme', t);
-  themeBtn.textContent = t === 'dark' ? '☀️' : '🌸';
-  localStorage.setItem('ruz_theme', t);
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme',t);
+  themeBtn.textContent=t==='dark'?'☀️':'🌸';
+  localStorage.setItem('ruz_theme',t);
 }
-themeBtn.addEventListener('click', () => {
-  applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+themeBtn.addEventListener('click',()=>{
+  applyTheme(document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark');
 });
 
-// ── MESSAGES ──────────────────────────────────────────────────────────────────
-function addMsg(role, html) {
-  const row = document.createElement('div');
-  row.className = `row ${role === 'bot' ? 'b' : 'u'}`;
-
-  const av = document.createElement('div');
-  av.className = 'av'; av.setAttribute('aria-hidden','true');
-  av.textContent = role === 'bot' ? '🌹' : '👩';
-
-  const bub = document.createElement('div');
-  bub.className = 'bub';
-  if (role === 'user') {
-    // user text: escape and show as-is
-    const p = document.createElement('p');
-    p.textContent = html;
-    bub.appendChild(p);
-  } else {
-    bub.innerHTML = html;
-  }
-
+function addMsg(role,html){
+  const row=document.createElement('div'); row.className=`row ${role==='bot'?'b':'u'}`;
+  const av=document.createElement('div'); av.className='av'; av.setAttribute('aria-hidden','true');
+  av.textContent=role==='bot'?'🌹':'👩';
+  const bub=document.createElement('div'); bub.className='bub';
+  if(role==='user'){const p=document.createElement('p'); p.textContent=html; bub.appendChild(p);}
+  else bub.innerHTML=html;
   row.appendChild(av); row.appendChild(bub);
-  msgsEl.appendChild(row);
-  msgsEl.scrollTop = msgsEl.scrollHeight;
+  msgsEl.appendChild(row); msgsEl.scrollTop=msgsEl.scrollHeight;
 }
 
-function showTyping() {
-  const row = document.createElement('div');
-  row.className = 'typing-row'; row.id = 'typRow';
-  const av = document.createElement('div'); av.className = 'av'; av.textContent = '🌹';
-  const bub = document.createElement('div'); bub.className = 'typing-bub';
-  bub.innerHTML = '<div class="td"></div><div class="td"></div><div class="td"></div>';
-  row.appendChild(av); row.appendChild(bub);
-  msgsEl.appendChild(row);
-  msgsEl.scrollTop = msgsEl.scrollHeight;
+function showTyping(){
+  const row=document.createElement('div'); row.className='typing-row'; row.id='typRow';
+  const av=document.createElement('div'); av.className='av'; av.textContent='🌹';
+  const bub=document.createElement('div'); bub.className='typing-bub';
+  bub.innerHTML='<div class="td"></div><div class="td"></div><div class="td"></div>';
+  row.appendChild(av); row.appendChild(bub); msgsEl.appendChild(row);
+  msgsEl.scrollTop=msgsEl.scrollHeight;
 }
-function hideTyping() { document.getElementById('typRow')?.remove(); }
+function hideTyping(){ document.getElementById('typRow')?.remove(); }
 
-// ── SEND ──────────────────────────────────────────────────────────────────────
-function send() {
-  const q = msgIn.value.trim();
-  if (!q) return;
-  addMsg('user', q);
-  msgIn.value = ''; msgIn.style.height = 'auto';
+function send(){
+  const q=msgIn.value.trim(); if(!q) return;
+  addMsg('user',q); msgIn.value=''; msgIn.style.height='auto';
   showTyping();
-  setTimeout(() => {
-    hideTyping();
-    addMsg('bot', findAnswer(q));
-  }, 400 + Math.random() * 300);
+  setTimeout(()=>{ hideTyping(); addMsg('bot',findAnswer(q)); }, 350+Math.random()*250);
 }
 
-sendBtn.addEventListener('click', send);
-msgIn.addEventListener('keydown', e => {
-  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
-});
-msgIn.addEventListener('input', () => {
-  msgIn.style.height = 'auto';
-  msgIn.style.height = Math.min(msgIn.scrollHeight, 160) + 'px';
-});
-document.querySelectorAll('.chip').forEach(b => {
-  b.addEventListener('click', () => { msgIn.value = b.dataset.q; send(); });
-});
+sendBtn.addEventListener('click',send);
+msgIn.addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();} });
+msgIn.addEventListener('input',()=>{ msgIn.style.height='auto'; msgIn.style.height=Math.min(msgIn.scrollHeight,160)+'px'; });
+document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{msgIn.value=b.dataset.q;send();}));
 </script>
 </body>
 </html>
