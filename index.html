@@ -63,6 +63,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .clear-btn:hover{background:var(--surface2);color:var(--text);border-color:var(--primary-l)}
 .inp-hint{font-size:.72rem;color:var(--muted);padding:.25rem .2rem 0;user-select:none}
 .disclaimer{width:100%;max-width:860px;padding:.25rem 1.5rem 1rem;text-align:center;font-size:.72rem;color:var(--muted);position:relative;z-index:1;line-height:1.5}
+.bub a{color:var(--primary);text-decoration:none;font-weight:600;border-bottom:1.5px solid var(--primary-l);transition:color .15s,border-color .15s}
+.bub a:hover{color:var(--primary-h);border-bottom-color:var(--primary)}
 @media(max-width:600px){.hdr h1{font-size:1.35rem}.chips{gap:.35rem}.chip{font-size:.73rem;padding:.28rem .7rem}.msgs{min-height:340px;max-height:50vh;padding:1rem}.row.u,.row.b{max-width:93%}}
 </style>
 </head>
@@ -103,7 +105,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <div class="inp-hint">Enter = odeslat &nbsp;·&nbsp; Shift+Enter = nový řádek</div>
 </main>
 <footer class="disclaimer">
-  ℹ️ Informace jsou orientační pro rok 2025. Vždy ověř aktuální částky na <b>gov.cz</b> nebo s daňovým poradcem.
+  ℹ️ Informace jsou orientační pro rok 2025. Vždy ověř aktuální částky na <a href="https://www.gov.cz/" target="_blank" rel="noopener" style="color:inherit;font-weight:600">gov.cz</a> nebo s daňovým poradcem.
 </footer>
 <script>
 // ── NORMALIZER ────────────────────────────────────────────────────────────────
@@ -135,12 +137,12 @@ const KB = [
   text:`<p>Postup je jednodušší, než to vypadá – zvládneš to sama za hodinu 🌸</p>
 <h3>Krok za krokem</h3>
 <ul>
-<li><b>1.</b> Vyplň <b>Jednotný registrační formulář (JRF)</b> – online na <b>gov.cz</b> nebo osobně na živnostenském úřadě</li>
+<li><b>1.</b> Vyplň <b>Jednotný registrační formulář (JRF)</b> – online na <a href="https://www.gov.cz/" target="_blank" rel="noopener">gov.cz</a> nebo osobně na živnostenském úřadě (<a href="https://www.rzp.cz/" target="_blank" rel="noopener">najdi svůj na rzp.cz</a>)</li>
 <li><b>2.</b> Přilož: občanský průkaz, adresu provozovny (může být tvoje bydliště)</li>
 <li><b>3.</b> Zaplať: <b>volná živnost = ZDARMA</b>, vázaná = 1 000 Kč/obor</li>
 <li><b>4.</b> Počkej do <b>5 pracovních dnů</b> → dostaneš živnostenský list a IČO</li>
-<li><b>5.</b> Přihlas se na <b>OSSZ</b> do <b>8 dnů</b> od zahájení</li>
-<li><b>6.</b> Přihlas se na <b>zdravotní pojišťovnu</b> do <b>8 dnů</b></li>
+<li><b>5.</b> Přihlas se na <a href="https://www.cssz.cz/" target="_blank" rel="noopener">OSSZ (cssz.cz)</a> do <b>8 dnů</b> od zahájení</li>
+<li><b>6.</b> Přihlas se na svou zdravotní pojišťovnu do <b>8 dnů</b> (např. <a href="https://www.vzp.cz/" target="_blank" rel="noopener">VZP</a>)</li>
 </ul>
 <h3>Typy živností</h3>
 <ul>
@@ -159,7 +161,7 @@ const KB = [
 <ul>
 <li>Sazba: <b>15 %</b> ze základu daně</li>
 <li>Základ daně = příjmy − výdaje</li>
-<li>Přiznání: do <b>31. března</b> (nebo 1. července s daňovým poradcem)</li>
+<li>Přiznání: do <b>31. března</b> (nebo 1. července s daňovým poradcem) – podej online na <a href="https://www.financnisprava.cz/" target="_blank" rel="noopener">financnisprava.cz</a></li>
 </ul>
 <h3>Slevy na dani – snižují přímo daň 🌸</h3>
 <ul>
@@ -211,7 +213,7 @@ const KB = [
 <li>Zdravotní: minimum <b>~2 968 Kč/měsíc</b></li>
 <li>Celkem: <b>~6 820 Kč/měsíc</b> povinně</li>
 </ul>
-<p>⚠️ Po skončení školy musíš změnu oznámit OSSZ a ZP do <b>8 dnů!</b></p>`
+<p>⚠️ Po skončení školy musíš změnu oznámit <a href="https://www.cssz.cz/" target="_blank" rel="noopener">OSSZ (cssz.cz)</a> a své ZP do <b>8 dnů!</b></p>`
 },
 // ── DPP ───────────────────────────────────────────────────────────────────────
 {
@@ -255,7 +257,7 @@ const KB = [
 <ul>
 <li>Neplátce DPH (obrat pod 2 mil./rok) – <b>DPH neuvádíš</b></li>
 <li>Archivuj faktury min. <b>5–10 let</b></li>
-<li>Bezplatné nástroje: <b>fakturoid.cz</b>, <b>billin.eu</b></li>
+<li>Bezplatné nástroje: <a href="https://www.fakturoid.cz/" target="_blank" rel="noopener">Fakturoid.cz</a>, <a href="https://www.billin.eu/" target="_blank" rel="noopener">Billin.eu</a></li>
 </ul>`
 },
 // ── SVARC / FORCED ICO ────────────────────────────────────────────────────────
@@ -279,7 +281,7 @@ const KB = [
 <ul>
 <li>Porovnej: kolik nabízejí na faktuře vs. co by ti dali na DPP</li>
 <li>Pokud práce má znaky závislé práce → firma porušuje zákoník práce</li>
-<li>Při pochybnostech se poraď s <b>pracovněprávním poradcem</b></li>
+<li>Při pochybnostech se poraď s pracovněprávním poradcem – info na <a href="https://www.mpsv.cz/" target="_blank" rel="noopener">mpsv.cz</a></li>
 </ul>`
 },
 // ── AFTER SCHOOL ──────────────────────────────────────────────────────────────
@@ -291,8 +293,8 @@ const KB = [
   text:`<h3>Co se změní po skončení školy (únor/březen 2027)</h3>
 <p>⚠️ <b>Musíš oznámit změnu do 8 dnů!</b></p>
 <ul>
-<li>Oznámit <b>OSSZ</b>, že přestáváš být studentkou</li>
-<li>Oznámit svou <b>zdravotní pojišťovnu</b></li>
+<li>Oznámit <a href="https://www.cssz.cz/" target="_blank" rel="noopener">OSSZ (cssz.cz)</a>, že přestáváš být studentkou</li>
+<li>Oznámit svou zdravotní pojišťovnu (např. <a href="https://www.vzp.cz/" target="_blank" rel="noopener">VZP</a>)</li>
 </ul>
 <h3>Finanční dopad</h3>
 <p>Ze <b>OSVČ vedlejší</b> → <b>OSVČ hlavní</b>. Přibudou zálohy:</p>
@@ -364,6 +366,7 @@ const KB = [
 <li>2025: <b>~8 498 Kč/měsíc</b> (příjmy do 1 mil. Kč)</li>
 <li>Výhoda: nemusíš podávat daňové přiznání</li>
 <li>Nevýhoda: nemůžeš uplatnit slevy na dani</li>
+<li>Více info: <a href="https://www.financnisprava.cz/" target="_blank" rel="noopener">financnisprava.cz</a></li>
 </ul>
 <p>⚠️ <b>Pro tebe nyní NELZE</b> – nelze kombinovat s DPP přesahujícím limit nebo se zaměstnáním.</p>`
 },
@@ -376,6 +379,7 @@ const KB = [
 <li><b>Neplátce DPH</b> = fakturuješ bez DPH – jednodušší</li>
 <li>Povinný plátce až při obratu přes <b>2 000 000 Kč/rok</b> (od 2025)</li>
 <li>Při běžných příjmech studentky se DPH nemusíš vůbec zabývat 🌸</li>
+<li>Více info: <a href="https://www.financnisprava.cz/" target="_blank" rel="noopener">financnisprava.cz</a></li>
 </ul>`
 },
 // ── UCTOVNICTVI / DANOVÁ EVIDENCE ─────────────────────────────────────────────
@@ -393,9 +397,9 @@ const KB = [
 </ul>
 <h3>Doporučené bezplatné nástroje</h3>
 <ul>
-<li><b>Fakturoid.cz</b> – faktury + evidence příjmů</li>
-<li><b>Billin.eu</b> – zdarma pro malé OSVČ</li>
-<li><b>Google Sheets</b> – stačí pro jednoduchý přehled</li>
+<li><a href="https://www.fakturoid.cz/" target="_blank" rel="noopener">Fakturoid.cz</a> – faktury + evidence příjmů</li>
+<li><a href="https://www.billin.eu/" target="_blank" rel="noopener">Billin.eu</a> – zdarma pro malé OSVČ</li>
+<li>Google Sheets – stačí pro jednoduchý přehled</li>
 </ul>`
 },
 // ── BANKOVNÍ ÚČET ─────────────────────────────────────────────────────────────
@@ -422,7 +426,7 @@ const KB = [
   text:`<h3>Přerušení vs. zrušení živnosti</h3>
 <h3>Přerušení (doporučeno při nejistotě) 🌸</h3>
 <ul>
-<li>Oznámíš na živnostenském úřadě – <b>zdarma, online na gov.cz</b></li>
+<li>Oznámíš na živnostenském úřadě – <b>zdarma, online na <a href="https://www.gov.cz/" target="_blank" rel="noopener">gov.cz</a></b></li>
 <li>IČO ti zůstane – kdykoli obnovíš bez nové registrace</li>
 <li>Během přerušení <b>neplatíš zálohy</b> na sociální ani zdravotní</li>
 </ul>
@@ -430,7 +434,7 @@ const KB = [
 <ul>
 <li>Oznámíš zánik na živnostenském úřadě – zdarma</li>
 <li>IČO zanikne, novou živnost musíš zaregistrovat znovu</li>
-<li>Nezapomeň se odhlásit od OSSZ a zdravotní pojišťovny</li>
+<li>Nezapomeň se odhlásit od <a href="https://www.cssz.cz/" target="_blank" rel="noopener">OSSZ</a> a zdravotní pojišťovny</li>
 </ul>
 <p>💡 Pokud si nejsi jistá, zvol přerušení – snáz se vrátí.</p>`
 }
