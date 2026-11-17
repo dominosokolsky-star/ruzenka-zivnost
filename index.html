@@ -65,6 +65,14 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .disclaimer{width:100%;max-width:860px;padding:.25rem 1.5rem 1rem;text-align:center;font-size:.72rem;color:var(--muted);position:relative;z-index:1;line-height:1.5}
 .bub a{color:var(--primary);text-decoration:none;font-weight:600;border-bottom:1.5px solid var(--primary-l);transition:color .15s,border-color .15s}
 .bub a:hover{color:var(--primary-h);border-bottom-color:var(--primary)}
+.calc-card{background:var(--surface2);border:1px solid var(--border);border-radius:var(--rs);padding:.9rem 1rem;margin:.6rem 0}
+.calc-card h4{font-size:.84rem;font-weight:700;color:var(--primary);margin-bottom:.1rem}
+.calc-sub{font-size:.72rem;color:var(--muted);margin:.1rem 0 .5rem;line-height:1.4}
+.calc-row{display:flex;justify-content:space-between;align-items:baseline;font-size:.8rem;padding:.22rem 0;border-bottom:1px solid var(--border)}
+.calc-row:last-child{border-bottom:none;padding-top:.4rem}
+.calc-vals{text-align:right;font-variant-numeric:tabular-nums;line-height:1.35}
+.calc-yr{display:block;font-size:.68rem;color:var(--muted);font-weight:400}
+.calc-net{font-weight:700}.calc-net .calc-vals{color:var(--primary)}
 @media(max-width:600px){.hdr h1{font-size:1.35rem}.chips{gap:.35rem}.chip{font-size:.73rem;padding:.28rem .7rem}.msgs{min-height:340px;max-height:50vh;padding:1rem}.row.u,.row.b{max-width:93%}}
 </style>
 </head>
@@ -90,6 +98,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
       <button class="chip" data-q="jak vystavit fakturu">🧾 Faktura</button>
       <button class="chip" data-q="firma mě nutí k ičo švarcsystém">⚠️ Firma nutí k IČO</button>
       <button class="chip" data-q="kolik vydělám čistého">🔢 Čistý příjem</button>
+      <button class="chip" data-q="vydělávám 40000 měsíčně kolik zaplatím">🧮 Kalkulačka</button>
     </div>
     <button class="clear-btn" id="clearBtn" title="Vymazat chat">🗑 Vymazat</button>
     </div>
@@ -440,8 +449,99 @@ const KB = [
 }
 ];
 
+// ── CALCULATOR ────────────────────────────────────────────────────────────────
+const C = {
+  tax: 0.15, credPopl: 30840, credStud: 4020,
+  socRate: 0.292, hlthRate: 0.135, vymBase: 0.5,
+  vedlejsiLim: 111736,
+  minSocHlavni: 46224, minHlthHlavni: 35616  // 3852 / 2968 per month
+};
+
+function extractAmount(q) {
+  let m = q.match(/(\d+)\s*tis[íi]c/i);
+  if (m) return +m[1] * 1000;
+  m = q.replace(/\s/g,'').match(/(\d+)[kK](?=\b|[^a-zA-Z]|$)/);
+  if (m) return +m[1] * 1000;
+  m = q.match(/(\d{1,3})[.\s,](\d{3})(?!\d)/);
+  if (m) return +(m[1]+m[2]);
+  m = q.match(/\b(\d{4,7})\b/);
+  if (m) return +m[1];
+  return null;
+}
+
+function isIncomeQuery(n) {
+  return ['vydel','zarobim','zarábam','prijem','příjem','prijmem','mesicne','měsíčně',
+          'rocne','ročně','za mesic','za rok','vydelek','výdělek','income','earn',
+          'dostavam','dostávám','beru','vydel'].some(w => n.includes(norm(w)));
+}
+
+function calcScenario(annual, pausRate, isStudent, isVedlejsi) {
+  const vydaje = Math.round(annual * pausRate);
+  const zaklad = annual - vydaje;
+  const tax = Math.max(0, Math.round(zaklad * C.tax - C.credPopl - (isStudent ? C.credStud : 0)));
+  const vym = zaklad * C.vymBase;
+  let soc, hlth;
+  if (isVedlejsi) {
+    hlth = 0; // covered by state (student) or employer
+    soc = zaklad <= C.vedlejsiLim ? 0 : Math.round(vym * C.socRate);
+  } else {
+    soc  = Math.max(C.minSocHlavni,  Math.round(vym * C.socRate));
+    hlth = Math.max(C.minHlthHlavni, Math.round(vym * C.hlthRate));
+  }
+  const total = tax + soc + hlth;
+  return { annual, vydaje, zaklad, tax, soc, hlth, total, net: annual - total };
+}
+
+function czk(n) { return Math.round(n).toLocaleString('cs-CZ') + ' Kč'; }
+
+function calcCard(label, sub, s) {
+  const mo = v => czk(v/12);
+  const row = (name, val, cls='') =>
+    `<div class="calc-row ${cls}"><span>${name}</span><span class="calc-vals">${mo(val)}<span class="calc-yr">${czk(val)}/rok</span></span></div>`;
+  return `<div class="calc-card">
+<h4>${label}</h4><p class="calc-sub">${sub}</p>
+${row('Hrubý příjem', s.annual)}
+${row('Paušální výdaje', -s.vydaje)}
+${row('Základ daně', s.zaklad)}
+${row('Daň z příjmů', s.tax)}
+${row('Sociální pojistné', s.soc)}
+${row('Zdravotní pojistné', s.hlth)}
+${row('✅ Čistý příjem', s.net, 'calc-net')}
+</div>`;
+}
+
+function tryCalc(q) {
+  const n = norm(q);
+  if (!isIncomeQuery(n)) return null;
+  const amount = extractAmount(q);
+  if (!amount || amount < 3000 || amount > 6000000) return null;
+  const isAnnual = /ro[cč]n|za rok/i.test(q);
+  const annual = isAnnual ? amount : amount * 12;
+  const monthly = Math.round(annual / 12);
+
+  const sA = calcScenario(annual, 0.60, true,  true);   // studentka vedlejší 60%
+  const sB = calcScenario(annual, 0.80, true,  true);   // studentka vedlejší 80%
+  const sC = calcScenario(annual, 0.60, false, false);  // hlavní OSVČ 60%
+  const sD = calcScenario(annual, 0.60, false, true);   // po škole + job = vedlejší 60%
+
+  return `<p>🧮 <b>Kalkulace pro ${czk(monthly)}/měsíc</b> (${czk(annual)}/rok)</p>
+<p style="font-size:.75rem;color:var(--muted)">Hodnoty jsou měsíční · v závorce roční · rok 2025</p>
+${calcCard('A – Studentka, vedlejší OSVČ, paušál 60%',
+  'Volná živnost: IT, grafika, marketing, překlady, copywriting…', sA)}
+${calcCard('B – Studentka, vedlejší OSVČ, paušál 80%',
+  'Řemeslná živnost: stavebnictví, elektrikář, instalatér…', sB)}
+${calcCard('C – Po škole, hlavní OSVČ, paušál 60%',
+  'Bez zaměstnání – platíš minimální zálohy (~6 820 Kč/měs)', sC)}
+${calcCard('D – Po škole + zaměstnání, vedlejší OSVČ, paušál 60%',
+  'Souběžně pracuješ jako zaměstnanec – zpět na vedlejší, nižší odvody', sD)}
+<p style="font-size:.73rem;color:var(--muted);margin-top:.4rem">⚠️ Orientační výpočet. Slevy: poplatník 30 840 Kč + student 4 020 Kč. Více na <a href="https://www.financnisprava.cz/" target="_blank" rel="noopener">financnisprava.cz</a>.</p>`;
+}
+
 // ── MATCHER ───────────────────────────────────────────────────────────────────
 function findAnswer(q) {
+  const calc = tryCalc(q);
+  if (calc) return calc;
+
   const n = norm(q);
   const words = n.split(/\s+/).filter(w => w.length > 2);
 
@@ -505,6 +605,7 @@ const petalsEl = document.getElementById('petals');
 <li>Pojistným pro studentky (vedlejší OSVČ)</li>
 <li>Kombinací DPP + živnost</li>
 <li>Fakturami, švarcsystémem, životem po škole</li>
+<li>🧮 <b>Kalkulačka</b> – napiš třeba <i>"vydělávám 40 000 měsíčně"</i> a ukážu ti daně a odvody ve všech scénářích</li>
 </ul>
 <p>Napiš otázku nebo klikni na téma nahoře 🌸</p>`
   );
