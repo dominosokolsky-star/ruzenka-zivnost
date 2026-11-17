@@ -59,6 +59,10 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .send-btn:disabled{opacity:.4;cursor:not-allowed}
 .send-btn:focus-visible{outline:2px solid var(--primary-h);outline-offset:3px}
 .sr{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.clear-btn{background:none;border:1.5px solid var(--border);border-radius:var(--rs);padding:.28rem .8rem;font-size:.75rem;color:var(--muted);cursor:pointer;font-family:inherit;transition:all .18s;align-self:center}
+.clear-btn:hover{background:var(--surface2);color:var(--text);border-color:var(--primary-l)}
+.inp-hint{font-size:.72rem;color:var(--muted);padding:.25rem .2rem 0;user-select:none}
+.disclaimer{width:100%;max-width:860px;padding:.25rem 1.5rem 1rem;text-align:center;font-size:.72rem;color:var(--muted);position:relative;z-index:1;line-height:1.5}
 @media(max-width:600px){.hdr h1{font-size:1.35rem}.chips{gap:.35rem}.chip{font-size:.73rem;padding:.28rem .7rem}.msgs{min-height:340px;max-height:50vh;padding:1rem}.row.u,.row.b{max-width:93%}}
 </style>
 </head>
@@ -68,32 +72,39 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 <header class="hdr">
   <span class="hdr-rose" aria-hidden="true">🌹</span>
   <h1>Živnostenský Pomocník</h1>
-  <p>Průvodkyně světem živností 🇨🇿 · Rozumí česky aj slovensky 🇸🇰 · zdarma &amp; offline</p>
+  <p>Průvodkyně světem živností v ČR 🇨🇿 · rozumí česky i slovensky 🇸🇰 · zdarma &amp; offline</p>
 </header>
 <main class="chat" aria-label="Chatbot Ruženka">
-  <nav aria-label="Rychlá témata / Rýchle témy">
-    <div class="chips" role="list">
-      <button class="chip" data-q="jak zaregistrovat živnost">📋 Registrace / Registrácia</button>
-      <button class="chip" data-q="jaké daně musím platit">💰 Daně / Dane</button>
-      <button class="chip" data-q="pojistné studentka osvč vedlejší">🏥 Pojistné / Poistné</button>
+  <nav aria-label="Rychlá témata">
+    <div style="display:flex;align-items:flex-start;gap:.6rem;flex-wrap:wrap">
+    <div class="chips" role="list" style="flex:1">
+      <button class="chip" data-q="jak zaregistrovat živnost">📋 Registrace</button>
+      <button class="chip" data-q="jaké daně musím platit">💰 Daně</button>
+      <button class="chip" data-q="pojistné studentka osvč vedlejší">🏥 Pojistné</button>
       <button class="chip" data-q="dpp a živnost zároveň">📄 DPP + živnost</button>
       <button class="chip" data-q="co jsou paušální výdaje">🧾 Paušální výdaje</button>
-      <button class="chip" data-q="co se stane po skončení školy">🎓 Po škole / Po škole</button>
+      <button class="chip" data-q="co se stane po skončení školy">🎓 Po škole</button>
       <button class="chip" data-q="výhody a nevýhody živnosti">⚖️ Výhody vs. nevýhody</button>
-      <button class="chip" data-q="jak vystavit fakturu">🧾 Faktura / Faktúra</button>
+      <button class="chip" data-q="jak vystavit fakturu">🧾 Faktura</button>
       <button class="chip" data-q="firma mě nutí k ičo švarcsystém">⚠️ Firma nutí k IČO</button>
-      <button class="chip" data-q="kolik vydělám čistého">🔢 Čistý příjem / Príjem</button>
+      <button class="chip" data-q="kolik vydělám čistého">🔢 Čistý příjem</button>
+    </div>
+    <button class="clear-btn" id="clearBtn" title="Vymazat chat">🗑 Vymazat</button>
     </div>
   </nav>
   <div class="msgs" id="msgsEl" role="log" aria-live="polite"></div>
   <div class="inp-row">
     <div class="inp-wrap">
-      <label for="msgIn" class="sr">Napiš zprávu / Napíš správu</label>
+      <label for="msgIn" class="sr">Napiš zprávu</label>
       <textarea id="msgIn" rows="1" placeholder="Napiš otázku česky nebo slovensky… 🌸"></textarea>
     </div>
     <button class="send-btn" id="sendBtn" aria-label="Odeslat" title="Odeslat">🌹</button>
   </div>
+  <div class="inp-hint">Enter = odeslat &nbsp;·&nbsp; Shift+Enter = nový řádek</div>
 </main>
+<footer class="disclaimer">
+  ℹ️ Informace jsou orientační pro rok 2025. Vždy ověř aktuální částky na <b>gov.cz</b> nebo s daňovým poradcem.
+</footer>
 <script>
 // ── NORMALIZER ────────────────────────────────────────────────────────────────
 function norm(s) {
@@ -105,7 +116,7 @@ function norm(s) {
 const KB = [
 // ── WELCOME / GREETING ────────────────────────────────────────────────────────
 {
-  keys:['ahoj','cau','nazdar','zdravim','dobry','hi ','hello','dobrý den','dobry den','vitaj','vita'],
+  keys:['ahoj','cau','nazdar','zdravim','dobry','hi','hello','dobrý den','dobry den','vitaj','vita'],
   text:`<p>Ahoj! 🌹 Jsem <b>Ruženka</b>, tvoje průvodkyně světem živností v ČR.</p>
 <p>Na co se chceš zeptat? Klidně piš česky nebo slovensky, rozumím oběma jazykům 🌸</p>`
 },
@@ -184,7 +195,7 @@ const KB = [
   keys:['pojistne','pojistní','pojistění','pojisten','pojisteni','poistne','poistní','poistenie',
         'zdravotni','zdravotné','zdravotne','socialni','sociálne','socialn','ossz','zp','zaloh','zálohy',
         'vedlejsi','vedlejší','vedlajsi','hlavni','hlavní','hlavna','osvč','szco','szčo','odvody',
-        'platit odvody','platit pojistne','platim','platím','platit zdravotni','platit socialn',
+        'platit odvody','platit pojistne','platit zdravotni','platit socialn',
         'pojistovna','pojišťovna','poisťovna','studentka pojist'],
   text:`<h3>Klíčový rozdíl: OSVČ vedlejší vs. hlavní</h3>
 <p><b>Ty jsi studentka → OSVČ VEDLEJŠÍ</b> – a to je obrovská výhoda! 🌸</p>
@@ -210,9 +221,9 @@ const KB = [
         'pracovat zaroven','druhy zamestnavatel','druhy zaměstnavatel'],
   text:`<h3>Ano, DPP + živnost jde kombinovat! ✅</h3>
 <p>Máš DPP u dvou firem a zakládáš živnost? Žádný problém, je to legální.</p>
-<h3>DPP pravidla (2024)</h3>
+<h3>DPP pravidla (ověř aktuální limit)</h3>
 <ul>
-<li>Do <b>10 000 Kč/měsíc</b> u jednoho zaměstnavatele: bez odvodů</li>
+<li>Do <b>10 000 Kč/měsíc</b> u jednoho zaměstnavatele: bez odvodů (limit platný od 2024)</li>
 <li>Nad 10 001 Kč/měsíc: zaměstnavatel odvede pojistné za tebe</li>
 </ul>
 <h3>Při kombinaci DPP + živnost</h3>
@@ -366,6 +377,62 @@ const KB = [
 <li>Povinný plátce až při obratu přes <b>2 000 000 Kč/rok</b> (od 2025)</li>
 <li>Při běžných příjmech studentky se DPH nemusíš vůbec zabývat 🌸</li>
 </ul>`
+},
+// ── UCTOVNICTVI / DANOVÁ EVIDENCE ─────────────────────────────────────────────
+{
+  keys:['uctovnictvi','účetnictví','uctovat','danová evidence','daňová evidence','evidence prijmu',
+        'archivovat doklady','co archivovat','evidovat','vedení účetnictví','musím vést','musi vest',
+        'uctovnictvi','ucetni','spravovat ucty','tabulka','excel','danove doklady','doklady','záznamy'],
+  text:`<h3>Musím vést účetnictví?</h3>
+<p>Jako OSVČ (fyzická osoba) vedeš <b>daňovou evidenci</b>, ne podvojné účetnictví – je to jednodušší.</p>
+<h3>Co to znamená v praxi</h3>
+<ul>
+<li>Eviduješ příjmy a výdaje – stačí <b>Excel nebo jednoduchá app</b></li>
+<li>Při paušálních výdajích eviduješ jen <b>příjmy</b> (výdaje neprokazuješ!)</li>
+<li>Faktury, smlouvy a příjmové doklady archivuj <b>min. 5 let</b> (daňové 10 let)</li>
+</ul>
+<h3>Doporučené bezplatné nástroje</h3>
+<ul>
+<li><b>Fakturoid.cz</b> – faktury + evidence příjmů</li>
+<li><b>Billin.eu</b> – zdarma pro malé OSVČ</li>
+<li><b>Google Sheets</b> – stačí pro jednoduchý přehled</li>
+</ul>`
+},
+// ── BANKOVNÍ ÚČET ─────────────────────────────────────────────────────────────
+{
+  keys:['bankovni ucet','bankovní účet','podnikatelský účet','podnikatelsky ucet','osobni ucet',
+        'potřebuji účet','potrebuji ucet','musi mit ucet','musím mít účet','iban','cislo uctu',
+        'číslo účtu','jaký účet','jaky ucet','platba na ucet','firemni ucet','firemní účet'],
+  text:`<h3>Potřebuji podnikatelský účet?</h3>
+<p><b>Ne – zákon to nevyžaduje.</b> Jako OSVČ můžeš přijímat platby na osobní účet. 🌸</p>
+<h3>Kdy se podnikatelský účet vyplatí</h3>
+<ul>
+<li>Chceš oddělit osobní a firemní finance (přehlednost)</li>
+<li>Máš hodně transakcí a chceš snáz sledovat příjmy pro přiznání</li>
+</ul>
+<h3>Tip</h3>
+<p>Na faktuře uveď číslo účtu + IBAN. Osobní i podnikatelský funguje stejně.</p>`
+},
+// ── POZASTAVENÍ ŽIVNOSTI ──────────────────────────────────────────────────────
+{
+  keys:['pozastavit','pozastavení','pozastaveni','prerusit','přerušit','prerusit zivnost',
+        'přerušit živnost','zastavit živnost','zrusit živnost','zrušit živnost','zrusit','zrušit',
+        'ukoncit zivnost','ukončit živnost','prestanu podnikat','přestanu podnikat',
+        'dat pauzu','dát pauzu','nechci pokracovat','nechci podnikat'],
+  text:`<h3>Přerušení vs. zrušení živnosti</h3>
+<h3>Přerušení (doporučeno při nejistotě) 🌸</h3>
+<ul>
+<li>Oznámíš na živnostenském úřadě – <b>zdarma, online na gov.cz</b></li>
+<li>IČO ti zůstane – kdykoli obnovíš bez nové registrace</li>
+<li>Během přerušení <b>neplatíš zálohy</b> na sociální ani zdravotní</li>
+</ul>
+<h3>Zrušení (trvalé)</h3>
+<ul>
+<li>Oznámíš zánik na živnostenském úřadě – zdarma</li>
+<li>IČO zanikne, novou živnost musíš zaregistrovat znovu</li>
+<li>Nezapomeň se odhlásit od OSSZ a zdravotní pojišťovny</li>
+</ul>
+<p>💡 Pokud si nejsi jistá, zvol přerušení – snáz se vrátí.</p>`
 }
 ];
 
@@ -390,6 +457,7 @@ function findAnswer(q) {
       // Word-level partial match — catches typos and short queries
       for (const w of words) {
         if (w.length < 3) continue;
+        if (k.length < 4) continue; // skip very short keys to avoid greedy false matches
         if (w.includes(k) || k.includes(w)) {
           score += Math.min(w.length, k.length) * 1.5;
         }
@@ -480,6 +548,10 @@ sendBtn.addEventListener('click',send);
 msgIn.addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();} });
 msgIn.addEventListener('input',()=>{ msgIn.style.height='auto'; msgIn.style.height=Math.min(msgIn.scrollHeight,160)+'px'; });
 document.querySelectorAll('.chip').forEach(b=>b.addEventListener('click',()=>{msgIn.value=b.dataset.q;send();}));
+document.getElementById('clearBtn').addEventListener('click',()=>{
+  msgsEl.innerHTML='';
+  addMsg('bot',`<p>Chat vymazán 🌸 Na co se chceš zeptat?</p>`);
+});
 </script>
 </body>
 </html>
