@@ -95,22 +95,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   </div>
 </main>
 <script>
-// ── LANGUAGE DETECTION ────────────────────────────────────────────────────────
-function isSlovak(q) {
-  // Slovak-exclusive characters
-  if (/[ľŕĺä]/.test(q)) return true;
-  const n = norm(q);
-  const sk = ['kolko','chcem','potrebujem','vydavky','poistne','odvody',
-               'zarobim','zarobis','registracia','mozem','neviem',' viem ',
-               'poistu','prihlas sa','ako sa','ako si',' ako ','aky ','ake ',
-               'zivnost','zivnostnik','podnikanie','zamestnanie','pracovat'];
-  const cz = ['kolik','chci','potrebuji','vydaje','pojistne','vydelam',
-               'jsem','mohu','muzem','nevim','jak se','jak si',' jak '];
-  const skHits = sk.filter(w => n.includes(w)).length;
-  const czHits = cz.filter(w => n.includes(w)).length;
-  return skHits > czHits;
-}
-
 // ── NORMALIZER ────────────────────────────────────────────────────────────────
 function norm(s) {
   return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')
@@ -123,15 +107,12 @@ const KB = [
 {
   keys:['ahoj','cau','nazdar','zdravim','dobry','hi ','hello','dobrý den','dobry den','vitaj','vita'],
   text:`<p>Ahoj! 🌹 Jsem <b>Ruženka</b>, tvoje průvodkyně světem živností v ČR.</p>
-<p>Na co se chceš zeptat? Klidně piš česky nebo slovensky, rozumím oběma jazykům 🌸</p>`,
-  textSK:`<p>Ahoj! 🌹 Som <b>Ruženka</b>, tvoja sprievodkyňa svetom živností v ČR.</p>
-<p>Na čo sa chceš opýtať? Kľudne píš po česky alebo slovensky, rozumiem obom jazykom 🌸</p>`
+<p>Na co se chceš zeptat? Klidně piš česky nebo slovensky, rozumím oběma jazykům 🌸</p>`
 },
 // ── THANKS ────────────────────────────────────────────────────────────────────
 {
   keys:['diky','dekuji','dekuju','super','skvele','pomohl','pomohla','perfekt','vyborn','dobre','dik','vdaka','dakujem','super','skvelé','pomohlo'],
-  text:`<p>Ráda pomohla! 🌹 Pokud máš další otázky, klidně se ptej 🌸</p>`,
-  textSK:`<p>Rada som pomohla! 🌹 Ak máš ďalšie otázky, kľudne sa pýtaj 🌸</p>`
+  text:`<p>Ráda pomohla! 🌹 Pokud máš další otázky, klidně se ptej 🌸</p>`
 },
 // ── REGISTRATION ──────────────────────────────────────────────────────────────
 {
@@ -156,24 +137,7 @@ const KB = [
 <li><b>Vázaná</b> – účetnictví, průvodce, masér… → vzdělání + 1 000 Kč/obor</li>
 <li><b>Koncesovaná</b> – zbraně, taxi, alkohol… → státní povolení</li>
 </ul>
-<p>Nejspíš ti bude stačit <b>volná živnost</b> – je nejlevnější a nevyžaduje žádné certifikáty.</p>`,
-  textSK:`<p>Postup je jednoduchší, než to vyzerá – zvládneš to sama za hodinu 🌸</p>
-<h3>Krok za krokom</h3>
-<ul>
-<li><b>1.</b> Vyplň <b>Jednotný registračný formulár (JRF)</b> – online na <b>gov.cz</b> alebo osobne na živnostenskom úrade</li>
-<li><b>2.</b> Prilož: občiansky preukaz, adresu prevádzkarne (môže byť tvoje bydlisko)</li>
-<li><b>3.</b> Zaplať: <b>voľná živnosť = ZADARMO</b>, viazaná = 1 000 Kč/obor</li>
-<li><b>4.</b> Počkaj do <b>5 pracovných dní</b> → dostaneš živnostenský list a IČO</li>
-<li><b>5.</b> Prihlás sa na <b>OSSZ</b> do <b>8 dní</b> od začatia</li>
-<li><b>6.</b> Prihlás sa na <b>zdravotnú poisťovňu</b> do <b>8 dní</b></li>
-</ul>
-<h3>Typy živností</h3>
-<ul>
-<li><b>Voľná</b> – IT, administratíva, grafika, marketing, preklady… → zadarmo, bez požiadaviek</li>
-<li><b>Viazaná</b> – účtovníctvo, sprievodca, masér… → vzdelanie + 1 000 Kč/obor</li>
-<li><b>Koncesovaná</b> – zbrane, taxi, alkohol… → štátne povolenie</li>
-</ul>
-<p>Najskôr ti bude stačiť <b>voľná živnosť</b> – je najlacnejšia a nevyžaduje žiadne certifikáty.</p>`
+<p>Nejspíš ti bude stačit <b>volná živnost</b> – je nejlevnější a nevyžaduje žádné certifikáty.</p>`
 },
 // ── TAXES ─────────────────────────────────────────────────────────────────────
 {
@@ -193,21 +157,7 @@ const KB = [
 <li>Celkem: <b>34 860 Kč/rok</b> → při nižších příjmech daň = 0 Kč!</li>
 </ul>
 <h3>Příklad</h3>
-<p>Příjmy <b>200 000 Kč</b> + paušál 60 % = základ 80 000 Kč → daň 12 000 Kč → po slevách: <b>daň = 0 Kč ✅</b></p>`,
-  textSK:`<h3>Daň z príjmov fyzických osôb</h3>
-<ul>
-<li>Sadzba: <b>15 %</b> zo základu dane</li>
-<li>Základ dane = príjmy − výdavky</li>
-<li>Daňové priznanie: do <b>31. marca</b> (alebo 1. júla s daňovým poradcom)</li>
-</ul>
-<h3>Zľavy na dani – znižujú priamo daň 🌸</h3>
-<ul>
-<li>Zľava na poplatníka: <b>30 840 Kč/rok</b> – má každý automaticky</li>
-<li>Zľava na študenta: <b>4 020 Kč/rok</b> – pokiaľ si stále študentka</li>
-<li>Celkom: <b>34 860 Kč/rok</b> → pri nižších príjmoch daň = 0 Kč!</li>
-</ul>
-<h3>Príklad</h3>
-<p>Príjmy <b>200 000 Kč</b> + paušál 60 % = základ 80 000 Kč → daň 12 000 Kč → po zľavách: <b>daň = 0 Kč ✅</b></p>`
+<p>Příjmy <b>200 000 Kč</b> + paušál 60 % = základ 80 000 Kč → daň 12 000 Kč → po slevách: <b>daň = 0 Kč ✅</b></p>`
 },
 // ── PAUSAL VYDAJE ─────────────────────────────────────────────────────────────
 {
@@ -227,20 +177,6 @@ const KB = [
 <li>Příjmy: 200 000 Kč</li>
 <li>Výdaje (60 %): 120 000 Kč – <i>nemusíš nic dokládat!</i></li>
 <li>Základ daně: 80 000 Kč → Daň: 12 000 Kč → Po slevách: <b>0 Kč ✅</b></li>
-</ul>`,
-  textSK:`<h3>Paušálne výdavky – najjednoduchšia varianta</h3>
-<p>Namiesto zbierania účteniek si odpočítaš pevné % z príjmov. Jednoduché, obľúbené, legálne.</p>
-<h3>Koľko % podľa živnosti</h3>
-<ul>
-<li><b>60 %</b> – voľná živnosť (IT, administratíva, grafika, marketing, preklady…)</li>
-<li><b>80 %</b> – remeselná alebo viazaná živnosť</li>
-<li><b>40 %</b> – slobodné povolania (architekt, lekár, právnik…)</li>
-</ul>
-<h3>Príklad výpočtu (60 %)</h3>
-<ul>
-<li>Príjmy: 200 000 Kč</li>
-<li>Výdavky (60 %): 120 000 Kč – <i>nemusíš nič dokladať!</i></li>
-<li>Základ dane: 80 000 Kč → Daň: 12 000 Kč → Po zľavách: <b>0 Kč ✅</b></li>
 </ul>`
 },
 // ── INSURANCE ─────────────────────────────────────────────────────────────────
@@ -264,22 +200,7 @@ const KB = [
 <li>Zdravotní: minimum <b>~2 968 Kč/měsíc</b></li>
 <li>Celkem: <b>~6 820 Kč/měsíc</b> povinně</li>
 </ul>
-<p>⚠️ Po skončení školy musíš změnu oznámit OSSZ a ZP do <b>8 dnů!</b></p>`,
-  textSK:`<h3>Kľúčový rozdiel: SZČO vedľajšia vs. hlavná</h3>
-<p><b>Ty si študentka → SZČO VEDĽAJŠIA</b> – a to je obrovská výhoda! 🌸</p>
-<h3>SZČO vedľajšia (ty, ako študentka do 26 rokov)</h3>
-<ul>
-<li><b>Zdravotné zálohy: 0 Kč</b> – si poistená štátom!</li>
-<li><b>Sociálne zálohy: 0 Kč</b> – ak príjem zo živnosti neprekročí <b>111 736 Kč/rok</b></li>
-<li>Pri prekročení limitu → záloha ~<b>1 496 Kč/mesiac</b></li>
-</ul>
-<h3>SZČO hlavná (po ukončení štúdia)</h3>
-<ul>
-<li>Sociálne: minimum <b>~3 852 Kč/mesiac</b></li>
-<li>Zdravotné: minimum <b>~2 968 Kč/mesiac</b></li>
-<li>Celkom: <b>~6 820 Kč/mesiac</b> povinne</li>
-</ul>
-<p>⚠️ Po skončení školy musíš zmenu oznámiť OSSZ a ZP do <b>8 dní!</b></p>`
+<p>⚠️ Po skončení školy musíš změnu oznámit OSSZ a ZP do <b>8 dnů!</b></p>`
 },
 // ── DPP ───────────────────────────────────────────────────────────────────────
 {
@@ -300,20 +221,6 @@ const KB = [
 <li>Příjmy z DPP + ze živnosti se sčítají pro výpočet daně</li>
 <li>Zdravotní ze živnosti: <b>0 Kč</b> (studentka → stát platí)</li>
 <li>Sociální ze živnosti: dle příjmu (vedlejší OSVČ)</li>
-</ul>`,
-  textSK:`<h3>Áno, DPP + živnosť ide kombinovať! ✅</h3>
-<p>Máš DPP u dvoch firiem a zakladáš živnosť? Žiadny problém, je to legálne.</p>
-<h3>DPP pravidlá (2024)</h3>
-<ul>
-<li>Do <b>10 000 Kč/mesiac</b> u jedného zamestnávateľa: bez odvodov</li>
-<li>Nad 10 001 Kč/mesiac: zamestnávateľ odvedie poistné za teba</li>
-</ul>
-<h3>Pri kombinácii DPP + živnosť</h3>
-<ul>
-<li>Daňové priznanie podávaš <b>vždy povinne</b></li>
-<li>Príjmy z DPP + zo živnosti sa sčítavajú pre výpočet dane</li>
-<li>Zdravotné zo živnosti: <b>0 Kč</b> (študentka → štát platí)</li>
-<li>Sociálne zo živnosti: podľa príjmu (vedľajšia SZČO)</li>
 </ul>`
 },
 // ── INVOICE ───────────────────────────────────────────────────────────────────
@@ -337,23 +244,6 @@ const KB = [
 <ul>
 <li>Neplátce DPH (obrat pod 2 mil./rok) – <b>DPH neuvádíš</b></li>
 <li>Archivuj faktury min. <b>5–10 let</b></li>
-<li>Bezplatné nástroje: <b>fakturoid.cz</b>, <b>billin.eu</b></li>
-</ul>`,
-  textSK:`<h3>Čo musí faktúra obsahovať</h3>
-<ul>
-<li><b>Číslo faktúry</b> – vlastná číselná rada (2024001, 2024002…)</li>
-<li><b>Dátum vystavenia</b></li>
-<li><b>DUZP</b> – dátum uskutočnenia zdaniteľného plnenia (kedy si prácu dokončila)</li>
-<li><b>Tvoje údaje:</b> meno, adresa, <b>IČO</b></li>
-<li><b>Odberateľ:</b> názov firmy, adresa, IČO</li>
-<li><b>Popis plnenia</b> – čo si dodala</li>
-<li><b>Cena</b> – neplátca DPH: len celková suma</li>
-<li><b>Spôsob platby</b>, číslo účtu, dátum splatnosti</li>
-</ul>
-<h3>Tipy</h3>
-<ul>
-<li>Neplátca DPH (obrat pod 2 mil./rok) – <b>DPH neuvádzaš</b></li>
-<li>Archivuj faktúry min. <b>5–10 rokov</b></li>
 <li>Bezplatné nástroje: <b>fakturoid.cz</b>, <b>billin.eu</b></li>
 </ul>`
 },
@@ -379,23 +269,6 @@ const KB = [
 <li>Porovnej: kolik nabízejí na faktuře vs. co by ti dali na DPP</li>
 <li>Pokud práce má znaky závislé práce → firma porušuje zákoník práce</li>
 <li>Při pochybnostech se poraď s <b>pracovněprávním poradcem</b></li>
-</ul>`,
-  textSK:`<h3>Firma ťa núti k IČO – čo to znamená?</h3>
-<p><b>Švarcsystém</b> = nelegálna prax, keď firma núti pracovať na IČO namiesto zmluvy/DPP, hoci práca má znaky závislej práce.</p>
-<h3>Znaky závislej práce</h3>
-<ul>
-<li>Pevný pracovný čas daný firmou</li>
-<li>Práca výhradne na mieste a nástroji firmy</li>
-<li>Firma riadi a kontroluje prácu</li>
-<li>Pracuješ len pre jedného zamestnávateľa</li>
-</ul>
-<h3>Prečo to firmy robia</h3>
-<p>Ušetria <b>~34 % odvodov</b> zamestnávateľa. Pre teba to znamená vyššia suma na faktúre, ale zodpovednosť za dane a odvody padá na teba.</p>
-<h3>Odporúčanie</h3>
-<ul>
-<li>Porovnaj: koľko ponúkajú na faktúre vs. čo by ti dali na DPP</li>
-<li>Ak práca má znaky závislej práce → firma porušuje zákonník práce</li>
-<li>Pri pochybnostiach sa poraď s <b>pracovnoprávnym poradcom</b></li>
 </ul>`
 },
 // ── AFTER SCHOOL ──────────────────────────────────────────────────────────────
@@ -421,24 +294,6 @@ const KB = [
 <ul>
 <li><b>Nastoupíš do zaměstnání</b> → zase vedlejší OSVČ, nižší zálohy ✅</li>
 <li><b>Zůstaneš jen na živnosti</b> → OSVČ hlavní, vyšší zálohy</li>
-</ul>`,
-  textSK:`<h3>Čo sa zmení po skončení školy (február/marec 2027)</h3>
-<p>⚠️ <b>Musíš oznámiť zmenu do 8 dní!</b></p>
-<ul>
-<li>Oznámiť <b>OSSZ</b>, že prestávaš byť študentkou</li>
-<li>Oznámiť svoju <b>zdravotnú poisťovňu</b></li>
-</ul>
-<h3>Finančný dopad</h3>
-<p>Zo <b>SZČO vedľajšej</b> → <b>SZČO hlavná</b>. Pribudnú zálohy:</p>
-<ul>
-<li>Sociálne: minimum <b>~3 852 Kč/mesiac</b></li>
-<li>Zdravotné: minimum <b>~2 968 Kč/mesiac</b></li>
-<li>Celkom navyše: <b>~6 820 Kč/mesiac</b></li>
-</ul>
-<h3>Ako to riešiť</h3>
-<ul>
-<li><b>Nastúpiš do zamestnania</b> → opäť vedľajšia SZČO, nižšie zálohy ✅</li>
-<li><b>Zostaneš len na živnosti</b> → SZČO hlavná, vyššie zálohy</li>
 </ul>`
 },
 // ── PROS/CONS ─────────────────────────────────────────────────────────────────
@@ -462,22 +317,6 @@ const KB = [
 <li>Žádná placená dovolená ani nemocenská</li>
 <li>Zodpovědnost za daně je plně na tobě</li>
 <li>Banky někdy složitěji posuzují OSVČ při úvěru</li>
-</ul>`,
-  textSK:`<h3>✅ Výhody živnosti</h3>
-<ul>
-<li>Paušálne výdavky → <b>výrazne nižšie dane</b>, bez účteniek</li>
-<li>Ako študentka: <b>zdravotné zálohy 0 Kč</b>, sociálne možno tiež 0 Kč</li>
-<li>Flexibilné pracovné podmienky</li>
-<li>Zriadenie voľnej živnosti je <b>zadarmo</b></li>
-<li>Možnosť odpočtu reálnych nákladov (notebook, software, kurzy)</li>
-</ul>
-<h3>❌ Nevýhody živnosti</h3>
-<ul>
-<li>Administratívna záťaž: priznanie, zálohy, faktúry</li>
-<li>Po skončení školy: <b>~6 820 Kč/mesiac</b> navyše na odvodoch</li>
-<li>Žiadna platená dovolenka ani nemocenská</li>
-<li>Zodpovednosť za dane je plne na tebe</li>
-<li>Banky niekedy komplikovanejšie posudzujú SZČO pri úvere</li>
 </ul>`
 },
 // ── NET INCOME CALC ───────────────────────────────────────────────────────────
@@ -501,22 +340,6 @@ const KB = [
 <li>Základ daně: 120 000 Kč → Daň po slevách: <b>0 Kč</b></li>
 <li>Sociální (vedlejší, nad limitem): ~17 952 Kč/rok</li>
 <li>Čistý příjem: <b>≈ 282 000 Kč</b></li>
-</ul>`,
-  textSK:`<h3>Príklad: 200 000 Kč/rok, voľná živnosť, študentka</h3>
-<ul>
-<li>Príjmy: <b>200 000 Kč</b></li>
-<li>Paušálne výdavky (60 %): −120 000 Kč</li>
-<li>Základ dane: 80 000 Kč → Daň (15 %): 12 000 Kč</li>
-<li>Zľavy (poplatník + študent): −34 860 Kč → <b>Daň: 0 Kč ✅</b></li>
-<li>Sociálne (vedľajšia, pod limitom): <b>0 Kč</b></li>
-<li>Zdravotné (študentka): <b>0 Kč</b></li>
-<li>Čistý príjem: <b>≈ 200 000 Kč</b></li>
-</ul>
-<h3>Príklad: 300 000 Kč/rok, študentka</h3>
-<ul>
-<li>Základ dane: 120 000 Kč → Daň po zľavách: <b>0 Kč</b></li>
-<li>Sociálne (vedľajšia, nad limitom): ~17 952 Kč/rok</li>
-<li>Čistý príjem: <b>≈ 282 000 Kč</b></li>
 </ul>`
 },
 // ── PAUSALNI DAN ──────────────────────────────────────────────────────────────
@@ -531,15 +354,7 @@ const KB = [
 <li>Výhoda: nemusíš podávat daňové přiznání</li>
 <li>Nevýhoda: nemůžeš uplatnit slevy na dani</li>
 </ul>
-<p>⚠️ <b>Pro tebe nyní NELZE</b> – nelze kombinovat s DPP přesahujícím limit nebo se zaměstnáním.</p>`,
-  textSK:`<h3>Paušálna daň – všetko v jednej zálohe</h3>
-<ul>
-<li>Jedna záloha = daň z príjmov + sociálne + zdravotné</li>
-<li>2025: <b>~8 498 Kč/mesiac</b> (príjmy do 1 mil. Kč)</li>
-<li>Výhoda: nemusíš podávať daňové priznanie</li>
-<li>Nevýhoda: nemôžeš uplatniť zľavy na dani</li>
-</ul>
-<p>⚠️ <b>Pre teba teraz NEJDE</b> – nedá sa kombinovať s DPP prekračujúcim limit alebo so zamestnaním.</p>`
+<p>⚠️ <b>Pro tebe nyní NELZE</b> – nelze kombinovat s DPP přesahujícím limit nebo se zaměstnáním.</p>`
 },
 // ── DPH ───────────────────────────────────────────────────────────────────────
 {
@@ -550,12 +365,6 @@ const KB = [
 <li><b>Neplátce DPH</b> = fakturuješ bez DPH – jednodušší</li>
 <li>Povinný plátce až při obratu přes <b>2 000 000 Kč/rok</b> (od 2025)</li>
 <li>Při běžných příjmech studentky se DPH nemusíš vůbec zabývat 🌸</li>
-</ul>`,
-  textSK:`<h3>DPH – musím sa registrovať?</h3>
-<ul>
-<li><b>Neplátca DPH</b> = fakturuješ bez DPH – jednoduchšie</li>
-<li>Povinný plátca až pri obrate nad <b>2 000 000 Kč/rok</b> (od 2025)</li>
-<li>Pri bežných príjmoch študentky sa DPH nemusíš vôbec zaoberať 🌸</li>
 </ul>`
 }
 ];
@@ -589,15 +398,11 @@ function findAnswer(q) {
     if (score > bestScore) { bestScore = score; best = item; }
   }
 
-  const sk = isSlovak(q);
-
   if (bestScore < 4 || !best) {
-    return sk
-      ? `<p>Hmm, na túto otázku nemám presnú odpoveď 🌸</p><p>Skús to inak alebo klikni na tému vyššie. Pre konkrétne situácie odporúčam konzultáciu s <b>daňovým poradcom</b>.</p>`
-      : `<p>Hmm, na tuhle otázku nemám přesnou odpověď 🌸</p><p>Zkus to jinak nebo klikni na téma nahoře. Pro konkrétní situace doporuč konzultaci s <b>daňovým poradcem</b>.</p>`;
+    return `<p>Hmm, na tuhle otázku nemám přesnou odpověď 🌸</p><p>Zkus to jinak nebo klikni na téma nahoře. Pro konkrétní situace doporuč konzultaci s <b>daňovým poradcem</b>.</p>`;
   }
 
-  return sk && best.textSK ? best.textSK : best.text;
+  return best.text;
 }
 
 // ── DOM ───────────────────────────────────────────────────────────────────────
@@ -619,17 +424,17 @@ const petalsEl = document.getElementById('petals');
   }
   applyTheme(localStorage.getItem('ruz_theme')||'light');
   addMsg('bot',
-`<p>Ahoj! 🌹 Som <b>Ruženka</b> / Jsem <b>Ruženka</b> – tvoja sprievodkyňa svetom živností v ČR.</p>
-<p>Rozumiem <b>česky aj slovensky</b> 🇨🇿🇸🇰 – píš ako chceš, pochopím ťa aj pri chybách alebo vágnych otázkach.</p>
-<p>Viem ti poradiť s:</p>
+`<p>Ahoj! 🌹 Jsem <b>Ruženka</b>, tvoje průvodkyně světem živností v ČR.</p>
+<p>Rozumím <b>česky i slovensky</b> 🇨🇿🇸🇰 – piš jak chceš, pochopím tě i při chybách nebo vágních otázkách.</p>
+<p>Poradím ti s:</p>
 <ul>
-<li>Registráciou živnosti / Registrací živnosti</li>
-<li>Daňami, zľavami, paušálnymi výdavkami</li>
-<li>Poistným pre študentky (vedľajšia OSVČ / SZČO)</li>
-<li>Kombináciou DPP + živnosť</li>
-<li>Faktúrami, švarcsystémom, životom po škole</li>
+<li>Registrací živnosti a získáním IČO</li>
+<li>Daněmi, slevami, paušálními výdaji</li>
+<li>Pojistným pro studentky (vedlejší OSVČ)</li>
+<li>Kombinací DPP + živnost</li>
+<li>Fakturami, švarcsystémem, životem po škole</li>
 </ul>
-<p>Napíš otázku alebo klikni na tému vyššie 🌸</p>`
+<p>Napiš otázku nebo klikni na téma nahoře 🌸</p>`
   );
   msgIn.focus();
 })();
