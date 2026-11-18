@@ -2386,21 +2386,41 @@ const C = {
 };
 
 function extractAmount(q) {
-  let m = q.match(/(\d+)\s*tis[íi]c/i);
-  if (m) return +m[1] * 1000;
-  m = q.replace(/\s/g,'').match(/(\d+)[kK](?=\b|[^a-zA-Z]|$)/);
-  if (m) return +m[1] * 1000;
+  // "100 tisíc", "100 tisic", "100tisic"
+  let m = q.match(/(\d+[\.,]?\d*)\s*tis[íi]c/i);
+  if (m) return Math.round(parseFloat(m[1].replace(',','.')) * 1000);
+  // "100k", "40K", "1.5k"
+  m = q.replace(/\s/g,'').match(/(\d+[\.,]?\d*)[kK](?!\w)/);
+  if (m) return Math.round(parseFloat(m[1].replace(',','.')) * 1000);
+  // "100 000" or "100.000" or "100,000" (thousands separator)
   m = q.match(/(\d{1,3})[.\s,](\d{3})(?!\d)/);
-  if (m) return +(m[1]+m[2]);
+  if (m) return +(m[1] + m[2]);
+  // plain 4–7 digit number: "40000", "100000"
   m = q.match(/\b(\d{4,7})\b/);
   if (m) return +m[1];
+  // plain 3-digit like "500" interpreted as hundreds (rare but allow "500 Kč" fails – skip)
   return null;
 }
 
 function isIncomeQuery(n) {
-  return ['vydel','zarobim','zarábam','prijem','příjem','prijmem','mesicne','měsíčně',
-          'rocne','ročně','za mesic','za rok','vydelek','výdělek','income','earn',
-          'dostavam','dostávám','beru','vydel'].some(w => n.includes(norm(w)));
+  // Normalised string – diacritics already stripped by norm()
+  const triggers = [
+    // Czech
+    'vydel','zarobi','zarabi','prijem','mesicne','mesicni','rocne','rocni',
+    'za mesic','za rok','vydelek','dostav','beru','fakturuj','fakturuji',
+    'odvedu','odvody','kolik dan','kolik zaplatim','budu platit','cisty',
+    'hrub','dan z','zaplatit','vypocit','kalkulac','kolko',
+    // Slovak
+    'mesacne','mesacni','rocne','kolko','zarobim','zaplatim',
+    // English
+    'earn','income','month','monthly','annual','yearly','salary',
+    'per month','per year','per hour','hourly',
+    // Currency keywords (normalised: č→c, etc.)
+    'czk','kc','korun','crown','euro','usd',
+    // Generic "how much"
+    'kolik','kolko'
+  ];
+  return triggers.some(w => n.includes(w));
 }
 
 function calcScenario(annual, pausRate, isStudent, isVedlejsi) {
