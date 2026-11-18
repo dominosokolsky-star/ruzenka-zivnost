@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🌹 Ruženka – Živnostenský Pomocník</title>
+<title>🌹 Rúženka – Živnostenský Pomocník</title>
 <style>
 :root{--bg:#fff1f3;--surface:#fff;--surface2:#ffe4e8;--border:#fecdd5;--primary:#e11d48;--primary-h:#be123c;--primary-l:#fda4b1;--text:#1a0a0f;--text2:#6b3344;--muted:#9f6070;--user-bg:#e11d48;--user-fg:#fff;--bot-bg:#fff;--bot-fg:#1a0a0f;--shadow:0 4px 24px rgba(225,29,72,.12);--shadow-s:0 2px 8px rgba(225,29,72,.08);--r:16px;--rs:8px}
 [data-theme="dark"]{--bg:#110409;--surface:#1e0b13;--surface2:#2d1221;--border:#5c1d30;--primary:#f43f5e;--primary-h:#fb7089;--primary-l:#9f1239;--text:#fdf2f5;--text2:#f9a8ba;--muted:#c8849a;--user-bg:#be123c;--user-fg:#fff;--bot-bg:#2d1221;--bot-fg:#fdf2f5;--shadow:0 4px 24px rgba(244,63,94,.22);--shadow-s:0 2px 8px rgba(244,63,94,.15)}
@@ -84,7 +84,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
   <h1>Živnostenský Pomocník</h1>
   <p>Průvodkyně světem živností v ČR 🇨🇿 · rozumí česky i slovensky 🇸🇰 · zdarma &amp; offline</p>
 </header>
-<main class="chat" aria-label="Chatbot Ruženka">
+<main class="chat" aria-label="Chatbot Rúženka">
   <nav aria-label="Rychlá témata">
     <div style="display:flex;align-items:flex-start;gap:.6rem;flex-wrap:wrap">
     <div class="chips" role="list" style="flex:1">
@@ -141,7 +141,7 @@ const KB = [
 // ── WELCOME / GREETING ────────────────────────────────────────────────────────
 {
   keys:['ahoj','cau','nazdar','zdravim','dobry','hi','hello','dobrý den','dobry den','vitaj','vita'],
-  text:`<p>Ahoj! 🌹 Jsem <b>Ruženka</b>, tvoje průvodkyně světem živností v ČR.</p>
+  text:`<p>Ahoj! 🌹 Jsem <b>Rúženka</b>, tvoje průvodkyně světem živností v ČR.</p>
 <p>Na co se chceš zeptat? Klidně piš česky nebo slovensky, rozumím oběma jazykům 🌸</p>`
 },
 // ── THANKS ────────────────────────────────────────────────────────────────────
@@ -196,23 +196,46 @@ const KB = [
 },
 // ── PAUSAL VYDAJE ─────────────────────────────────────────────────────────────
 {
-  keys:['pausalni','paušální','pausalne','paušálne','vydaje','výdaje','vydavky','výdavky',
-        'pausal','paušál','60 proc','60%','uplatnit','uplatit','odpocet','odpočet','ucteny','účtenky',
-        'sberat','sbírat','zbierat','naklady','náklady','co si muzu odecist','co si mozem odecist'],
-  text:`<h3>Paušální výdaje – nejjednodušší varianta</h3>
-<p>Místo sbírání účtenek si odečteš pevné % z příjmů. Jednoduchý, oblíbený, legální.</p>
-<h3>Kolik % podle živnosti</h3>
+  keys:['pausalni vydaje','paušální výdaje','pausalne vydaje','paušálne výdaje',
+        'pausalni','paušální','pausalne','paušálne','vydaje','výdaje','vydavky','výdavky',
+        'pausal','paušál','60 proc','60%','uplatnit','uplatit','odpocet','odpočet',
+        'sberat','sbírat','zbierat','naklady','náklady','co si muzu odecist',
+        'co si mozem odecist','co su pausalne','co sú paušálne','co jsou pausalni',
+        'jak funguje pausál','jak funguje paušál','pausálne výdavky','procento vydaje',
+        'procento výdaje','neuplatnuji','nesbírám účtenky','bez uctenek','bez účtenek'],
+  text:`<h3>Paušální výdaje – co to je a jak funguje</h3>
+<p>Paušální výdaje jsou <b>zjednodušený způsob, jak snížit základ daně</b> – místo sbírání každé účtenky si od příjmů odečteš pevné procento. Jednoduché, oblíbené, naprosto legální.</p>
+<h3>Jak to funguje</h3>
 <ul>
-<li><b>60 %</b> – volná živnost (IT, administrativa, grafika, marketing, překlady, copywriting…)</li>
-<li><b>80 %</b> – řemeslná nebo vázaná živnost</li>
-<li><b>40 %</b> – svobodná povolání (architekt, lékař, právník…)</li>
+<li>Základ daně = <b>příjmy − paušální výdaje</b></li>
+<li>Z tohoto základu pak platíš daň 15 % (a pojistné)</li>
+<li>Nemusíš dokládat žádné skutečné výdaje ani schovávat faktury</li>
 </ul>
-<h3>Příklad výpočtu (60 %)</h3>
+<h3>Kolik % podle typu živnosti</h3>
 <ul>
-<li>Příjmy: 200 000 Kč</li>
-<li>Výdaje (60 %): 120 000 Kč – <i>nemusíš nic dokládat!</i></li>
-<li>Základ daně: 80 000 Kč → Daň: 12 000 Kč → Po slevách: <b>0 Kč ✅</b></li>
-</ul>`
+<li><b>60 %</b> – <b>volná živnost</b> (IT, grafika, marketing, překlady, copywriting, administrativa…)</li>
+<li><b>80 %</b> – řemeslná nebo vázaná živnost (stavebnictví, elektrikář, instalatér…)</li>
+<li><b>40 %</b> – svobodná povolání (architekt, lékař, právník…)</li>
+<li><b>30 %</b> – pronájem nemovitosti</li>
+</ul>
+<h3>Příklad – paušál 60 %, příjmy 300 000 Kč/rok</h3>
+<ul>
+<li>Příjmy: <b>300 000 Kč</b></li>
+<li>Paušální výdaje (60 %): <b>−180 000 Kč</b> <i>(žádné účtenky nepotřebuješ!)</i></li>
+<li>Základ daně: <b>120 000 Kč</b></li>
+<li>Daň 15 %: 18 000 Kč → po slevě poplatník (30 840 Kč) + student (4 020 Kč) = <b>daň 0 Kč ✅</b></li>
+</ul>
+<h3>Kdy je paušál výhodný</h3>
+<ul>
+<li>Tvoje skutečné výdaje jsou nižší než 60 % příjmů (= u většiny IT a online freelancerů)</li>
+<li>Nechceš se zabývat evidencí účtenek</li>
+</ul>
+<h3>Kdy zvážit skutečné výdaje místo paušálu</h3>
+<ul>
+<li>Máš vysoké skutečné výdaje – drahé vybavení, coworking, auto, hodně kurzů</li>
+<li>Skutečné výdaje přesahují 60 % příjmů → skutečné výdaje jsou výhodnější</li>
+</ul>
+<p>🌸 Pro studentku-freelancerku v IT nebo kreativní oblasti je <b>paušál 60 % téměř vždy optimální volba</b>.</p>`
 },
 // ── INSURANCE ─────────────────────────────────────────────────────────────────
 {
@@ -2557,7 +2580,7 @@ const petalsEl = document.getElementById('petals');
   }
   applyTheme(localStorage.getItem('ruz_theme')||'light');
   addMsg('bot',
-`<p>Ahoj! 🌹 Jsem <b>Ruženka</b>, tvoje průvodkyně světem živností v ČR.</p>
+`<p>Ahoj! 🌹 Jsem <b>Rúženka</b>, tvoje průvodkyně světem živností v ČR.</p>
 <p>Rozumím <b>česky i slovensky</b> 🇨🇿🇸🇰 – piš jak chceš, pochopím tě i při chybách nebo vágních otázkách.</p>
 <p>Poradím ti s:</p>
 <ul>
